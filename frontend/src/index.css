@@ -1,0 +1,27 @@
+@import url("https://fonts.googleapis.com/css2?family=Oldenburg&display=swap");
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Oldenburg", system-ui, sans-serif;
+
+  --color-primary: #00ffb2;
+  --color-primary-dark: #00cc8e;
+  --color-bg: #0d1f0d;
+  --color-bg-card: #152b15;
+  --color-bg-hover: #1e3b1e;
+}
+
+:root {
+  background-color: var(--color-bg);
+  color: white;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: var(--font-sans);
+}
+
+button {
+  cursor: pointer;
+}
