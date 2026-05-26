@@ -1,8 +1,22 @@
 import { X, LogIn } from "lucide-react";
 import { useModalStore } from "../store/useModalStore";
+import { supabase } from "../lib/supabase";
 
 export const SignupModal = () => {
   const { isOpen, closeModal } = useModalStore();
+
+  const handleGoogleLogin = async () => {
+    const { error } = await supabase.auth.signInWithOAuth({
+      provider: 'google',
+      options: {
+        redirectTo: window.location.origin,
+      },
+    });
+
+    if (error) {
+      console.error('Error logging in with Google:', error.message);
+    }
+  };
 
   if (!isOpen) return null;
 
@@ -25,7 +39,10 @@ export const SignupModal = () => {
             global leaderboard.
           </p>
 
-          <button className="w-full flex items-center justify-center gap-3 bg-white text-black py-3 rounded-xl font-bold hover:bg-gray-100 transition-colors">
+          <button 
+            onClick={handleGoogleLogin}
+            className="w-full flex items-center justify-center gap-3 bg-white text-black py-3 rounded-xl font-bold hover:bg-gray-100 transition-colors cursor-pointer"
+          >
             <LogIn size={20} />
             Continue with Google
           </button>
