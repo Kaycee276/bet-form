@@ -1,0 +1,144 @@
+// BetForm — World Cup 2026 tactical prediction app
+// Learn more: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+
+// ─────────────────────────────────────────────
+// Enums
+// ─────────────────────────────────────────────
+
+enum FixtureStatus {
+  OPEN
+  LOCKED
+  SQUAD_PENDING
+  PENDING_SETTLEMENT
+  SETTLED
+}
+
+enum TeamSide {
+  HOME
+  AWAY
+}
+
+enum PlayerPosition {
+  GK
+  DEF
+  MID
+  ATT
+}
+
+// ─────────────────────────────────────────────
+// Models
+// ─────────────────────────────────────────────
+
+model User {
+  id         String   @id @default(uuid())
+  supabaseId String   @unique @map("supabase_id")
+  email      String   @unique
+  username   String   @unique
+  avatarUrl  String?  @map("avatar_url")
+  isAdmin    Boolean  @default(false) @map("is_admin")
+  createdAt  DateTime @default(now()) @map("created_at")
+  updatedAt  DateTime @updatedAt @map("updated_at")
+
+  predictions Prediction[]
+
+  @@map("users")
+}
+
+model Fixture {
+  id            String        @id @default(uuid())
+  apiFootballId Int           @unique @map("api_football_id")
+  homeTeamId    Int           @map("home_team_id")
+  homeTeamName  String        @map("home_team_name")
+  homeTeamBadge String?       @map("home_team_badge")
+  awayTeamId    Int           @map("away_team_id")
+  awayTeamName  String        @map("away_team_name")
+  awayTeamBadge String?       @map("away_team_badge")
+  kickoffAt     DateTime      @map("kickoff_at")
+  round         String
+  status        FixtureStatus @default(SQUAD_PENDING)
+
+  // Confirmed lineup data (populated after match ends)
+  homeFormation String? @map("home_formation")
+  awayFormation String? @map("away_formation")
+  homeStartXI   Json?   @map("home_start_xi") // [{ playerId, name, position, slot }]
+  awayStartXI   Json?   @map("away_start_xi")
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  squads      Squad[]
+  predictions Prediction[]
+
+  @@map("fixtures")
+}
+
+model Squad {
+  id          String         @id @default(uuid())
+  fixtureId   String         @map("fixture_id")
+  teamId      Int            @map("team_id")
+  teamSide    TeamSide       @map("team_side")
+  playerId    Int            @map("player_id")
+  playerName  String         @map("player_name")
+  position    PlayerPosition
+  shirtNumber Int?           @map("shirt_number")
+  photo       String?
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  fixture Fixture @relation(fields: [fixtureId], references: [id])
+
+  @@unique([fixtureId, teamId, playerId])
+  @@map("squads")
+}
+
+model Prediction {
+  id           String   @id @default(uuid())
+  userId       String   @map("user_id")
+  fixtureId    String   @map("fixture_id")
+  teamSide     TeamSide @map("team_side")
+  formation    String
+  formationOdd Float    @map("formation_odd")
+
+  // Scoring — populated after settlement
+  formationScore Float?  @map("formation_score")
+  totalScore     Float?  @map("total_score")
+  isSettled      Boolean @default(false) @map("is_settled")
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  user    User               @relation(fields: [userId], references: [id])
+  fixture Fixture            @relation(fields: [fixtureId], references: [id])
+  players PredictionPlayer[]
+
+  // One prediction per user per team per fixture
+  @@unique([userId, fixtureId, teamSide])
+  @@map("predictions")
+}
+
+model PredictionPlayer {
+  id           String @id @default(uuid())
+  predictionId String @map("prediction_id")
+  slot         String // e.g. "GK", "CB", "ST"
+  slotOdd      Float  @map("slot_odd")
+  playerId     Int    @map("player_id")
+  playerName   String @map("player_name")
+
+  // Scoring — populated after settlement
+  proximityScore Float? @map("proximity_score")
+  playerScore    Float? @map("player_score")
+
+  prediction Prediction @relation(fields: [predictionId], references: [id], onDelete: Cascade)
+
+  @@map("prediction_players")
+}
