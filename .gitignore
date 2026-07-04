@@ -1,1 +1,41 @@
 betform_requirements.md
+
+
+# Node
+node_modules
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Environment
+.env
+.env.production
+.env.local
+
+# Build
+dist
+build
+
+# Compiled output
+*.o
+*.so
+*.dll
+
+# Logs
+logs
+*.log
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# Editor files
+.vscode
+.idea
+*.swp
+*.swo
+
+
+
+

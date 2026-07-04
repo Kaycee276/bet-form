@@ -3,16 +3,13 @@
 
 @theme {
   --font-sans: "Oldenburg", system-ui, sans-serif;
+  --bg: #000;
 
-  --color-primary: #00ffb2;
-  --color-primary-dark: #00cc8e;
-  --color-bg: #0d1f0d;
-  --color-bg-card: #152b15;
-  --color-bg-hover: #1e3b1e;
+  --color-bg-card: #0d1f0d;
 }
 
 :root {
-  background-color: var(--color-bg);
+  background-color: var(--bg);
   color: white;
 }
 

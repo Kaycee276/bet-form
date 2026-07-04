@@ -64,7 +64,8 @@ model Fixture {
   awayTeamBadge String?       @map("away_team_badge")
   kickoffAt     DateTime      @map("kickoff_at")
   round         String
-  status        FixtureStatus @default(SQUAD_PENDING)
+  venue         String?
+  status        FixtureStatus @default(OPEN)
 
   // Confirmed lineup data (populated after match ends)
   homeFormation String? @map("home_formation")

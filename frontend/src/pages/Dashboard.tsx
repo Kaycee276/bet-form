@@ -1,72 +1,73 @@
-import { useAuthStore } from '../store/useAuthStore';
-import { LogOut, Trophy, Activity, Calendar } from 'lucide-react';
+import { useEffect, useState } from "react";
+import { MatchCard } from "../components/dashboard/MatchCard";
+import { BottomNav } from "../components/dashboard/BottomNav";
+
+interface ApiFixture {
+  id: string;
+  homeTeamName: string;
+  awayTeamName: string;
+  kickoffAt: string;
+  round: string;
+}
+
+interface Fixture {
+  id: string;
+  homeTeam: string;
+  awayTeam: string;
+  time: string;
+  league: string;
+  homeOdds: string;
+  drawOdds: string;
+  awayOdds: string;
+}
 
 export const Dashboard = () => {
-  const { user, signOut } = useAuthStore();
+  const [fixtures, setFixtures] = useState<Fixture[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    fetch('http://localhost:3000/api/fixtures')
+      .then(res => res.json())
+      .then((data: ApiFixture[]) => {
+        const formatted: Fixture[] = data.map((f) => ({
+          id: f.id,
+          homeTeam: f.homeTeamName,
+          awayTeam: f.awayTeamName,
+          // Format kickoff as e.g., "Thu, 19:30"
+          time: new Date(f.kickoffAt).toLocaleString([], { weekday: 'short', month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' }),
+          league: f.round,
+          // Placeholder odds
+          homeOdds: "2.10",
+          drawOdds: "3.40",
+          awayOdds: "3.80",
+        }));
+        setFixtures(formatted);
+      })
+      .catch(err => console.error("Failed to fetch fixtures:", err))
+      .finally(() => setIsLoading(false));
+  }, []);
 
   return (
-    <div className="min-h-screen bg-bg-dark text-white p-6">
-      <header className="max-w-6xl mx-auto flex items-center justify-between mb-12 bg-bg-card p-4 rounded-2xl border border-primary/20">
-        <div className="flex items-center gap-4">
-          <div className="w-12 h-12 rounded-full overflow-hidden bg-primary/20 flex items-center justify-center border-2 border-primary">
-            {user?.user_metadata?.avatar_url ? (
-              <img src={user.user_metadata.avatar_url} alt="Profile" className="w-full h-full object-cover" />
-            ) : (
-              <span className="text-xl font-bold text-primary">{user?.email?.charAt(0).toUpperCase()}</span>
-            )}
-          </div>
-          <div>
-            <h1 className="text-2xl font-bold text-primary">Welcome, {user?.user_metadata?.full_name || user?.email}</h1>
-            <p className="text-gray-400 text-sm">Dashboard Overview</p>
-          </div>
-        </div>
-        <button
-          onClick={signOut}
-          className="flex items-center gap-2 px-4 py-2 rounded-xl bg-white/5 hover:bg-white/10 text-white transition-colors"
-        >
-          <LogOut size={18} />
-          Sign Out
-        </button>
-      </header>
-
-      <main className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-6">
-        {/* Placeholder Stat Cards */}
-        <div className="bg-bg-card p-6 rounded-2xl border border-primary/10 flex items-center gap-4">
-          <div className="p-4 bg-primary/10 rounded-xl text-primary">
-            <Trophy size={24} />
-          </div>
-          <div>
-            <p className="text-gray-400 text-sm">Global Rank</p>
-            <p className="text-2xl font-bold">#1,024</p>
-          </div>
-        </div>
-        
-        <div className="bg-bg-card p-6 rounded-2xl border border-primary/10 flex items-center gap-4">
-          <div className="p-4 bg-primary/10 rounded-xl text-primary">
-            <Activity size={24} />
-          </div>
-          <div>
-            <p className="text-gray-400 text-sm">Total Points</p>
-            <p className="text-2xl font-bold">342</p>
-          </div>
-        </div>
-
-        <div className="bg-bg-card p-6 rounded-2xl border border-primary/10 flex items-center gap-4">
-          <div className="p-4 bg-primary/10 rounded-xl text-primary">
-            <Calendar size={24} />
-          </div>
-          <div>
-            <p className="text-gray-400 text-sm">Next Prediction</p>
-            <p className="text-2xl font-bold">2 Days</p>
-          </div>
-        </div>
-        
-        {/* Main Content Area */}
-        <div className="col-span-1 md:col-span-3 bg-bg-card border border-primary/10 rounded-2xl p-8 min-h-[400px] mt-6 flex flex-col items-center justify-center gap-4 text-center">
-          <h2 className="text-2xl font-bold text-gray-300">Your Upcoming Fixtures</h2>
-          <p className="text-gray-500 max-w-md">You haven't made any predictions yet. Check back when the tournament schedules are released!</p>
+    <div className="min-h-screen bg-bg-dark flex flex-col pb-16">
+      <main className="flex-1 p-6 overflow-y-auto">
+        <div className="max-w-xl mx-auto">
+          <h2 className="text-2xl font-bold text-white mb-6">Upcoming Fixtures</h2>
+          
+          {isLoading ? (
+            <div className="flex justify-center p-8">
+              <div className="animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-primary"></div>
+            </div>
+          ) : (
+            <div className="flex flex-col gap-4 mb-8">
+              {fixtures.map((match) => (
+                <MatchCard key={match.id} {...match} />
+              ))}
+            </div>
+          )}
         </div>
       </main>
+
+      <BottomNav />
     </div>
   );
 };

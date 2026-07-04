@@ -3,6 +3,8 @@ import { Routes, Route, useNavigate } from "react-router-dom";
 import { PromotionalLanding } from "./pages/PromotionalLanding";
 import { SignupModal } from "./components/SignupModal";
 import { Dashboard } from "./pages/Dashboard";
+import { Leaderboard } from "./pages/Leaderboard";
+import { Settings } from "./pages/Settings";
 import { ProtectedRoute } from "./components/ProtectedRoute";
 import { supabase } from "./lib/supabase";
 import { useAuthStore } from "./store/useAuthStore";
@@ -15,7 +17,7 @@ function App() {
     // Check active session on initial load
     supabase.auth.getSession().then(({ data: { session } }) => {
       setAuth(session, session?.user ?? null);
-      if (session) {
+      if (session && window.location.pathname === "/") {
         navigate("/dashboard", { replace: true });
       }
     });
@@ -23,10 +25,13 @@ function App() {
     // Listen for auth changes
     const {
       data: { subscription },
-    } = supabase.auth.onAuthStateChange((_event, session) => {
+    } = supabase.auth.onAuthStateChange((event, session) => {
       setAuth(session, session?.user ?? null);
       if (session) {
-        navigate("/dashboard", { replace: true });
+        // Only redirect to dashboard if they just signed in or are on the public landing page
+        if (event === "SIGNED_IN" || window.location.pathname === "/") {
+          navigate("/dashboard", { replace: true });
+        }
       } else {
         navigate("/", { replace: true });
       }
@@ -44,6 +49,22 @@ function App() {
           element={
             <ProtectedRoute>
               <Dashboard />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/leaderboard"
+          element={
+            <ProtectedRoute>
+              <Leaderboard />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/settings"
+          element={
+            <ProtectedRoute>
+              <Settings />
             </ProtectedRoute>
           }
         />
