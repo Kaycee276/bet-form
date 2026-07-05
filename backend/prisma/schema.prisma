@@ -55,11 +55,9 @@ model User {
 
 model Fixture {
   id            String        @id @default(uuid())
-  apiFootballId Int           @unique @map("api_football_id")
-  homeTeamId    Int           @map("home_team_id")
+  league        String
   homeTeamName  String        @map("home_team_name")
   homeTeamBadge String?       @map("home_team_badge")
-  awayTeamId    Int           @map("away_team_id")
   awayTeamName  String        @map("away_team_name")
   awayTeamBadge String?       @map("away_team_badge")
   kickoffAt     DateTime      @map("kickoff_at")
@@ -85,7 +83,7 @@ model Fixture {
 model Squad {
   id          String         @id @default(uuid())
   fixtureId   String         @map("fixture_id")
-  teamId      Int            @map("team_id")
+  teamName    String         @map("team_name")
   teamSide    TeamSide       @map("team_side")
   playerId    Int            @map("player_id")
   playerName  String         @map("player_name")
@@ -98,7 +96,7 @@ model Squad {
 
   fixture Fixture @relation(fields: [fixtureId], references: [id])
 
-  @@unique([fixtureId, teamId, playerId])
+  @@unique([fixtureId, teamName, playerId])
   @@map("squads")
 }
 

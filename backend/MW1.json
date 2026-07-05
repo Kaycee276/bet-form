@@ -1,0 +1,72 @@
+[
+  {
+    "date": "Fri 21 Aug",
+    "homeTeam": "Arsenal",
+    "awayTeam": "Coventry City",
+    "kickoffTime": "20:00",
+    "venue": "Emirates Stadium"
+  },
+  {
+    "date": "Sat 22 Aug",
+    "homeTeam": "Hull City",
+    "awayTeam": "Manchester United",
+    "kickoffTime": "12:30",
+    "venue": "The MKM Stadium"
+  },
+  {
+    "date": "Sat 22 Aug",
+    "homeTeam": "Everton",
+    "awayTeam": "Crystal Palace",
+    "kickoffTime": "15:00",
+    "venue": "Hill Dickinson Stadium"
+  },
+  {
+    "date": "Sat 22 Aug",
+    "homeTeam": "Ipswich Town",
+    "awayTeam": "Sunderland",
+    "kickoffTime": "15:00",
+    "venue": "Portman Road"
+  },
+  {
+    "date": "Sat 22 Aug",
+    "homeTeam": "Nottingham Forest",
+    "awayTeam": "Leeds United",
+    "kickoffTime": "15:00",
+    "venue": "The City Ground"
+  },
+  {
+    "date": "Sat 22 Aug",
+    "homeTeam": "Brentford",
+    "awayTeam": "Tottenham Hotspur",
+    "kickoffTime": "17:30",
+    "venue": "Gtech Community Stadium"
+  },
+  {
+    "date": "Sun 23 Aug",
+    "homeTeam": "Brighton and Hove Albion",
+    "awayTeam": "Aston Villa",
+    "kickoffTime": "14:00",
+    "venue": "American Express Stadium"
+  },
+  {
+    "date": "Sun 23 Aug",
+    "homeTeam": "Manchester City",
+    "awayTeam": "Bournemouth",
+    "kickoffTime": "14:00",
+    "venue": "Etihad Stadium"
+  },
+  {
+    "date": "Sun 23 Aug",
+    "homeTeam": "Newcastle United",
+    "awayTeam": "Liverpool",
+    "kickoffTime": "16:30",
+    "venue": "St. James' Park"
+  },
+  {
+    "date": "Mon 24 Aug",
+    "homeTeam": "Fulham",
+    "awayTeam": "Chelsea",
+    "kickoffTime": "20:00",
+    "venue": "Craven Cottage"
+  }
+]
