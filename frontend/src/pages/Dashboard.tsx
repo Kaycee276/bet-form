@@ -41,7 +41,7 @@ export const Dashboard = () => {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    fetch(`http://${API_URL}/api/fixtures`)
+    fetch(`${API_URL}/api/fixtures`)
       .then((res) => res.json())
       .then((data: ApiFixture[]) => {
         const formatted: Fixture[] = data.map((f) => ({
