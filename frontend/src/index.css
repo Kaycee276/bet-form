@@ -1,18 +1,18 @@
 @import "tailwindcss";
 
 @theme {
-  --font-sans: "Inter", system-ui, sans-serif;
+  --font-sans: "Geist Pixel", system-ui, sans-serif;
   --font-heading: "Outfit", system-ui, sans-serif;
-  
-  --color-bg-base: #030712; /* Very dark gray/black */
-  --color-bg-card: #0f172a; /* Slate 900 */
-  --color-bg-card-hover: #1e293b; /* Slate 800 */
-  
-  --color-primary: #10b981; /* Emerald 500 */
-  --color-primary-hover: #059669; /* Emerald 600 */
+
+  --color-bg-base: #000;
+  --color-bg-card: #121212;
+  --color-bg-card-hover: #0a0a0a;
+
+  --color-primary: #016339;
+  --color-primary-hover: #2a9665;
   --color-primary-glow: rgba(16, 185, 129, 0.5);
-  
-  --color-accent: #3b82f6; /* Blue 500 */
+
+  --color-accent: #2b2219;
 }
 
 :root {
@@ -28,7 +28,12 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   font-family: var(--font-heading);
 }
 
@@ -38,7 +43,7 @@ button {
 
 /* Glassmorphism utility */
 .glass-panel {
-  background: rgba(15, 23, 42, 0.6);
+  background: #0a0a0a;
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   border: 1px solid rgba(255, 255, 255, 0.08);

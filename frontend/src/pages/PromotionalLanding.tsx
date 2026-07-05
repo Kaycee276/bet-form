@@ -30,10 +30,14 @@ export const PromotionalLanding = () => {
   return (
     <div className="min-h-screen bg-bg-base overflow-hidden relative">
       {/* Background ambient glow */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[600px] bg-primary-glow blur-[120px] rounded-full pointer-events-none opacity-40"></div>
 
       {/* Header */}
-      <header className="fixed top-0 w-full z-50 glass-panel border-x-0 border-t-0">
+      <header
+        className="fixed top-0 w-full z-50 bg-black/90 backdrop-blur-3xl border-1 border-x-0 border-t-0 "
+        style={{
+          borderColor: "rgba(255, 255, 255, 0.08)",
+        }}
+      >
         <div className="max-w-6xl mx-auto px-6 h-20 flex items-center justify-between">
           <div className="flex items-center gap-2 font-heading font-black text-2xl tracking-tight">
             <span className="text-white">Bet</span>
@@ -41,7 +45,7 @@ export const PromotionalLanding = () => {
           </div>
           <button
             onClick={openModal}
-            className="px-6 py-2.5 bg-primary text-bg-base font-bold rounded-full hover:bg-primary-hover transition-all shadow-[0_0_15px_rgba(16,185,129,0.4)] hover:shadow-[0_0_25px_rgba(16,185,129,0.6)]"
+            className="px-6 py-2.5 bg-primary text-bg-base font-bold rounded-full hover:bg-primary-hover transition-all "
           >
             Play Now
           </button>
@@ -61,9 +65,7 @@ export const PromotionalLanding = () => {
             className="text-4xl md:text-6xl font-heading font-black leading-[1.1] tracking-tight"
           >
             Prove Your <br />
-            <span className="text-primary">
-              Tactical Genius
-            </span>
+            <span className="text-primary">Tactical Genius</span>
           </motion.h1>
           <motion.p
             variants={fadeIn}
@@ -79,7 +81,7 @@ export const PromotionalLanding = () => {
           >
             <button
               onClick={openModal}
-              className="group flex items-center gap-2 px-8 py-4 bg-primary text-bg-base font-bold rounded-full text-base transition-all hover:scale-105 shadow-[0_0_30px_rgba(16,185,129,0.3)] hover:shadow-[0_0_40px_rgba(16,185,129,0.5)]"
+              className="group flex items-center gap-2 px-8 py-4 bg-primary text-bg-base font-bold rounded-full text-base transition-all  shadow-[0_0_30px_rgba(16,185,129,0.3)] hover:shadow-[0_0_40px_rgba(16,185,129,0.5)]"
             >
               Start Predicting
               <ArrowRight
