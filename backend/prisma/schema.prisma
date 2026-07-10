@@ -9,7 +9,6 @@ datasource db {
   provider = "postgresql"
 }
 
-
 // ─────────────────────────────────────────────
 // Enums
 // ─────────────────────────────────────────────
@@ -53,13 +52,50 @@ model User {
   @@map("users")
 }
 
+model Team {
+  id        String   @id @default(uuid())
+  name      String   @unique
+  badge     String?
+
+  players   Player[]
+  
+  homeFixtures Fixture[] @relation("HomeTeam")
+  awayFixtures Fixture[] @relation("AwayTeam")
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@map("teams")
+}
+
+model Player {
+  id        Int      @id @default(autoincrement())
+  name      String
+  position  PlayerPosition
+  photo     String?
+  
+  teamId    String?  @map("team_id")
+  team      Team?    @relation(fields: [teamId], references: [id])
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  squads           Squad[]
+  predictionPlayers PredictionPlayer[]
+
+  @@map("players")
+}
+
 model Fixture {
   id            String        @id @default(uuid())
   league        String
-  homeTeamName  String        @map("home_team_name")
-  homeTeamBadge String?       @map("home_team_badge")
-  awayTeamName  String        @map("away_team_name")
-  awayTeamBadge String?       @map("away_team_badge")
+  
+  homeTeamId    String        @map("home_team_id")
+  homeTeam      Team          @relation("HomeTeam", fields: [homeTeamId], references: [id])
+  
+  awayTeamId    String        @map("away_team_id")
+  awayTeam      Team          @relation("AwayTeam", fields: [awayTeamId], references: [id])
+  
   kickoffAt     DateTime      @map("kickoff_at")
   round         String
   venue         String?
@@ -83,20 +119,19 @@ model Fixture {
 model Squad {
   id          String         @id @default(uuid())
   fixtureId   String         @map("fixture_id")
-  teamName    String         @map("team_name")
   teamSide    TeamSide       @map("team_side")
+  
   playerId    Int            @map("player_id")
-  playerName  String         @map("player_name")
-  position    PlayerPosition
+  player      Player         @relation(fields: [playerId], references: [id])
+  
   shirtNumber Int?           @map("shirt_number")
-  photo       String?
 
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
 
   fixture Fixture @relation(fields: [fixtureId], references: [id])
 
-  @@unique([fixtureId, teamName, playerId])
+  @@unique([fixtureId, playerId])
   @@map("squads")
 }
 
@@ -130,8 +165,9 @@ model PredictionPlayer {
   predictionId String @map("prediction_id")
   slot         String // e.g. "GK", "CB", "ST"
   slotOdd      Float  @map("slot_odd")
+  
   playerId     Int    @map("player_id")
-  playerName   String @map("player_name")
+  player       Player @relation(fields: [playerId], references: [id])
 
   // Scoring — populated after settlement
   proximityScore Float? @map("proximity_score")

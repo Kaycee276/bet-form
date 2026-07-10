@@ -6,12 +6,31 @@ export class FixturesService {
   constructor(private prisma: PrismaService) {}
 
   async findAll() {
-    return this.prisma.fixture.findMany({
+    const fixtures = await this.prisma.fixture.findMany({
       orderBy: { kickoffAt: 'asc' },
+      include: { homeTeam: true, awayTeam: true },
     });
+    return fixtures.map((f) => ({
+      ...f,
+      homeTeamName: f.homeTeam?.name,
+      homeTeamBadge: f.homeTeam?.badge,
+      awayTeamName: f.awayTeam?.name,
+      awayTeamBadge: f.awayTeam?.badge,
+    }));
   }
 
   async findOne(id: string) {
-    return this.prisma.fixture.findUnique({ where: { id } });
+    const f = await this.prisma.fixture.findUnique({
+      where: { id },
+      include: { homeTeam: true, awayTeam: true },
+    });
+    if (!f) return null;
+    return {
+      ...f,
+      homeTeamName: f.homeTeam?.name,
+      homeTeamBadge: f.homeTeam?.badge,
+      awayTeamName: f.awayTeam?.name,
+      awayTeamBadge: f.awayTeam?.badge,
+    };
   }
 }
