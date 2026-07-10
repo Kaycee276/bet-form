@@ -5,6 +5,7 @@ import { SignupModal } from "./components/SignupModal";
 import { Dashboard } from "./pages/Dashboard";
 import { Leaderboard } from "./pages/Leaderboard";
 import { Settings } from "./pages/Settings";
+import { PredictFixture } from "./pages/PredictFixture";
 import { ProtectedRoute } from "./components/ProtectedRoute";
 import { supabase } from "./lib/supabase";
 import { useAuthStore } from "./store/useAuthStore";
@@ -49,6 +50,14 @@ function App() {
           element={
             <ProtectedRoute>
               <Dashboard />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/predict/:id"
+          element={
+            <ProtectedRoute>
+              <PredictFixture />
             </ProtectedRoute>
           }
         />

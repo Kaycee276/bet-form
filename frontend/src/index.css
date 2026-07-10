@@ -63,11 +63,4 @@ button {
   scrollbar-width: none;
 }
 
-/* Global overrides for brutalist/flat aesthetic per user request */
-* {
-  border-radius: 0 !important;
-  box-shadow: none !important;
-  text-shadow: none !important;
-  filter: none !important;
-  backdrop-filter: none !important; /* Removes glass blur */
-}
+

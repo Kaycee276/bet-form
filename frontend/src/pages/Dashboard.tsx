@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import { MatchCard } from "../components/dashboard/MatchCard";
 import { DashboardLoader } from "../components/dashboard/DashboardLoader";
 import { BottomNav } from "../components/dashboard/BottomNav";
@@ -104,7 +105,9 @@ export const Dashboard = () => {
                   >
                     {matches.map((match) => (
                       <motion.div key={match.id} variants={item}>
-                        <MatchCard {...match} />
+                        <Link to={`/predict/${match.id}`} className="block">
+                          <MatchCard {...match} />
+                        </Link>
                       </motion.div>
                     ))}
                   </motion.div>
