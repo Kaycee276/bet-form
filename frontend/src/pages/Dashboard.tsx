@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { MatchCard } from "../components/dashboard/MatchCard";
+import { DashboardLoader } from "../components/dashboard/DashboardLoader";
 import { BottomNav } from "../components/dashboard/BottomNav";
 import { motion } from "framer-motion";
 
@@ -78,12 +79,7 @@ export const Dashboard = () => {
       <main className="flex-1 px-6 relative z-10">
         <div className="max-w-7xl mx-auto w-full">
           {isLoading ? (
-            <div className="flex justify-center p-12">
-              <div className="relative w-12 h-12">
-                <div className="absolute inset-0 rounded-full border-t-2 border-primary animate-spin"></div>
-                <div className="absolute inset-2 rounded-full border-r-2 border-emerald-300 animate-spin opacity-50 animation-delay-200"></div>
-              </div>
-            </div>
+            <DashboardLoader />
           ) : (
             <div className="flex flex-col gap-10">
               {Object.entries(
