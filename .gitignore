@@ -1,6 +1,5 @@
 betform_requirements.md
 
-
 # Node
 node_modules
 npm-debug.log*
@@ -16,6 +15,8 @@ pnpm-debug.log*
 # Build
 dist
 build
+target/
+**/target/
 
 # Compiled output
 *.o
@@ -35,7 +36,3 @@ Thumbs.db
 .idea
 *.swp
 *.swo
-
-
-
-
