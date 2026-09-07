@@ -8,7 +8,7 @@ BetForm
 
 ### 1.2 Application Description
 
-A World Cup 2026 tactical prediction web application where users predict starting formations and starting XI for upcoming matches, competing on a skill-based leaderboard with an odds-based scoring system. No real money involved.
+A football tactical prediction web application where users predict starting formations and starting XI for upcoming matches, competing on a skill-based leaderboard with an odds-based scoring system. No real money involved.
 
 ## 2. Users and Usage Scenarios
 
@@ -20,7 +20,7 @@ A World Cup 2026 tactical prediction web application where users predict startin
 
 ### 2.2 Core Usage Scenarios
 
-- Browse upcoming World Cup 2026 fixtures
+- Browse upcoming football fixtures
 - Submit formation and starting XI predictions before match lockdown
 - View prediction results after matches settle
 - Track personal and global ranking on leaderboard
@@ -45,7 +45,7 @@ BetForm
 
 #### 3.2.1 Home/Fixtures Page
 
-- Display all World Cup 2026 fixtures grouped by date, sorted chronologically
+- Display all football fixtures grouped by date, sorted chronologically
 - Each fixture card shows:
   + Home team badge, name
   + Away team badge, name
@@ -219,15 +219,14 @@ BetForm
 - All API calls made from Supabase edge functions (never client-side)
 - API key stored as APIFOOTBALL_KEY in edge function environment variables
 - API base URL: https://v3.football.api-sports.io
-- League ID: 1 (World Cup)
-- Season: 2026
+- Dynamic/Configurable League ID(s) and Season(s) (e.g., Premier League, Champions League, World Cup)
 
 ### 4.10 Edge Function Logic
 
 **sync-fixtures**
 
 - Called daily via Supabase cron and on-demand
-- GET /fixtures?league=1&season=2026
+- GET /fixtures?league={league_id}&season={season}
 - Upsert all fixtures into fixtures table
 - Apply status logic based on kickoff time and squad availability
 
@@ -275,7 +274,7 @@ BetForm
 ## 6. Acceptance Criteria
 
 1. User signs in with Google and sets username on first login
-2. User views list of World Cup 2026 fixtures on Home page
+2. User views list of football fixtures on Home page
 3. User taps OPEN fixture and navigates to Prediction Screen
 4. User selects formation from dropdown (e.g., 4-3-3 with odd 1.4)
 5. User selects 11 players from slot dropdowns, pitch visual updates live
@@ -287,14 +286,14 @@ BetForm
 
 - Real money betting or transactions
 - localStorage usage (all data in Supabase)
-- Other leagues beyond World Cup 2026 (league ID 1, season 2026)
+- Non-football sports leagues
 - Social features (comments, sharing, following)
 - Push notifications
 - In-app chat or messaging
 - Multi-language support beyond English
 - Dark/light theme toggle (fixed dark theme)
 - Prediction editing after submission
-- Historical data beyond World Cup 2026
+- Historical match data prior to active seasons
 - Mobile app (iOS/Android native)
 - Email notifications
 - Password-based authentication (Google OAuth only)

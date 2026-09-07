@@ -1,6 +1,6 @@
 # BetForm ⚽
 
-> **A World Cup 2026 tactical prediction game.** Predict starting formations and starting XIs for every match, compete on a skill-based global leaderboard, and earn points through an odds-weighted scoring system. No real money involved — just pure tactical glory.
+> **A football tactical prediction game.** Predict starting formations and starting XIs for football matches, compete on a skill-based global leaderboard, and earn points through an odds-weighted scoring system. No real money involved — just pure tactical glory.
 
 ---
 
@@ -20,7 +20,7 @@
 
 ## Overview
 
-BetForm lets football fans put their tactical knowledge to the test. Before each World Cup 2026 match, users pick a team, choose a formation from 15 options, and select the exact 11 players they believe will start. After the match, predictions are automatically scored using a proximity-based, odds-weighted algorithm — meaning bold, accurate calls are rewarded more than obvious ones.
+BetForm lets football fans put their tactical knowledge to the test. Before each football match, users pick a team, choose a formation from 15 options, and select the exact 11 players they believe will start. After the match, predictions are automatically scored using a proximity-based, odds-weighted algorithm — meaning bold, accurate calls are rewarded more than obvious ones.
 
 ---
 
@@ -29,7 +29,7 @@ BetForm lets football fans put their tactical knowledge to the test. Before each
 | Area | Details |
 |---|---|
 | **Authentication** | Google OAuth via Supabase Auth; username setup on first login |
-| **Fixtures** | All World Cup 2026 fixtures synced daily from API-Football, grouped by date |
+| **Fixtures** | Upcoming football fixtures synced daily from API-Football, grouped by date |
 | **Prediction Flow** | 3-step flow: Formation → Starting XI → Review & Submit |
 | **Formations** | 15 formations with individual odds (4-3-3 through 3-3-3-1) |
 | **XI Selection** | Position-filtered player dropdowns; selected players removed from other slots |
@@ -70,8 +70,8 @@ BetForm lets football fans put their tactical knowledge to the test. Before each
 bet-form/
 ├── frontend/                  # React + Vite frontend
 │   ├── public/
-│   │   ├── WC_ball.webp       # World Cup 2026 match ball image
-│   │   ├── WC_banner.webp     # FIFA World Cup 2026 banner
+│   │   ├── WC_ball.webp       # Match ball image
+│   │   ├── WC_banner.webp     # Tournament / match banner
 │   │   ├── WC_image.webp      # Trophy / logo image
 │   │   ├── favicon.svg
 │   │   └── icons.svg
@@ -213,7 +213,7 @@ SQUAD_PENDING  →  OPEN  →  LOCKED  →  PENDING_SETTLEMENT  →  SETTLED
 The following are explicitly **not** included in this release:
 
 - Real money betting or financial transactions
-- Other leagues beyond World Cup 2026
+- Non-football sports leagues
 - Social features (comments, sharing, following)
 - Push or email notifications
 - Mobile native app (iOS / Android)
@@ -225,4 +225,4 @@ The following are explicitly **not** included in this release:
 
 ---
 
-> © 2026 BetForm. Not affiliated with FIFA.
+> © 2026 BetForm. Not affiliated with FIFA, UEFA, or any official football governing body.
