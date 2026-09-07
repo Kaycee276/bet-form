@@ -1,29 +1,21 @@
-import { Trophy, Activity, Target } from "lucide-react";
-
 const stats = [
   {
     title: "Global Rank",
     value: "#1,024",
     trend: "+12 positions",
-    icon: Trophy,
-    color: "text-amber-400",
-    bg: "bg-amber-400/15 border-amber-400/30",
+    badgeColor: "text-amber-300 bg-amber-400/20 border-amber-400/40",
   },
   {
     title: "Total Points",
     value: "342",
     trend: "+45 this week",
-    icon: Activity,
-    color: "text-emerald-400",
-    bg: "bg-emerald-400/15 border-emerald-400/30",
+    badgeColor: "text-emerald-300 bg-emerald-400/20 border-emerald-400/40",
   },
   {
     title: "Accuracy",
     value: "68%",
     trend: "+2.4%",
-    icon: Target,
-    color: "text-cyan-400",
-    bg: "bg-cyan-400/15 border-cyan-400/30",
+    badgeColor: "text-cyan-300 bg-cyan-400/20 border-cyan-400/40",
   },
 ];
 
@@ -33,22 +25,20 @@ export const StatCards = () => {
       {stats.map((stat) => (
         <div
           key={stat.title}
-          className="glass-card rounded-3xl p-6 relative overflow-hidden group hover:border-emerald-500/40 transition-colors"
+          className="glass-card rounded-3xl p-6 relative overflow-hidden group hover:border-emerald-400/50 transition-all border border-white/20"
         >
           <div className="flex justify-between items-start z-10 relative">
             <div>
-              <p className="text-slate-400 text-xs font-bold uppercase tracking-wider mb-1">{stat.title}</p>
+              <p className="text-slate-300 text-xs font-black uppercase tracking-wider mb-1.5">{stat.title}</p>
               <h3 className="text-3xl font-heading font-black text-white mb-2">{stat.value}</h3>
-              <p className="text-xs text-emerald-400 font-bold">{stat.trend}</p>
-            </div>
-            
-            <div className={`p-3.5 rounded-2xl border ${stat.bg} ${stat.color} shadow-lg`}>
-              <stat.icon size={22} />
+              <span className={`inline-block text-xs font-extrabold px-2.5 py-0.5 rounded-full border ${stat.badgeColor}`}>
+                {stat.trend}
+              </span>
             </div>
           </div>
           
-          {/* Subtle glass orb ambient glow */}
-          <div className="absolute -right-6 -bottom-6 w-24 h-24 rounded-full bg-emerald-500/10 blur-2xl group-hover:scale-150 transition-transform duration-500 pointer-events-none"></div>
+          {/* Subtle ambient glass glow */}
+          <div className="absolute -right-6 -bottom-6 w-28 h-28 rounded-full bg-emerald-400/15 blur-2xl group-hover:scale-150 transition-transform duration-500 pointer-events-none"></div>
         </div>
       ))}
     </div>

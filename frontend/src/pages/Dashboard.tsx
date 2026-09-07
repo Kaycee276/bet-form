@@ -5,7 +5,6 @@ import { DashboardLoader } from "../components/dashboard/DashboardLoader";
 import { BottomNav } from "../components/dashboard/BottomNav";
 import { StatCards } from "../components/dashboard/StatCards";
 import { motion } from "framer-motion";
-import { Calendar } from "lucide-react";
 
 const API_URL = import.meta.env.VITE_BACKEND_URL;
 
@@ -69,25 +68,18 @@ export const Dashboard = () => {
   }, []);
 
   return (
-    <div className="min-h-screen bg-[#07090e] flex flex-col relative pb-32 overflow-hidden text-slate-100">
-      {/* Background ambient glows */}
-      <div className="absolute top-0 right-1/4 w-[500px] h-[500px] bg-emerald-500/10 rounded-full blur-[160px] pointer-events-none"></div>
-      <div className="absolute top-1/2 left-0 w-[400px] h-[400px] bg-blue-500/10 rounded-full blur-[140px] pointer-events-none"></div>
+    <div className="min-h-screen bg-slate-900 flex flex-col relative pb-32 overflow-hidden text-slate-100">
+      {/* Brighter background ambient glows */}
+      <div className="absolute top-0 right-1/4 w-[600px] h-[600px] bg-emerald-400/20 rounded-full blur-[160px] pointer-events-none"></div>
+      <div className="absolute top-1/2 left-0 w-[500px] h-[500px] bg-cyan-400/20 rounded-full blur-[140px] pointer-events-none"></div>
 
       <header className="pt-12 pb-6 px-6 relative z-10 max-w-7xl mx-auto w-full">
-        <div className="flex items-center gap-3 mb-2">
-          <div className="p-2.5 rounded-2xl glass-pill">
-            <Calendar size={22} className="text-emerald-400" />
-          </div>
-          <div>
-            <h2 className="text-2xl md:text-4xl font-heading font-black tracking-tight text-white">
-              Upcoming Fixtures
-            </h2>
-            <p className="text-slate-400 font-medium text-xs md:text-sm mt-0.5">
-              Lock in your tactical predictions before kickoff lockdown.
-            </p>
-          </div>
-        </div>
+        <h2 className="text-3xl md:text-5xl font-heading font-black tracking-tight text-white mb-1">
+          Upcoming Fixtures
+        </h2>
+        <p className="text-slate-300 font-medium text-xs md:text-sm">
+          Lock in your tactical predictions before kickoff lockdown.
+        </p>
       </header>
 
       <main className="flex-1 px-6 relative z-10">
@@ -109,12 +101,12 @@ export const Dashboard = () => {
                 ),
               ).map(([league, matches]) => (
                 <div key={league}>
-                  <div className="sticky top-0 z-20 glass-nav backdrop-blur-2xl py-3 px-4 rounded-2xl mb-6 border border-white/10 flex items-center justify-between">
-                    <h3 className="text-lg font-heading font-bold text-white uppercase tracking-wider flex items-center gap-2">
-                      <span className="w-2.5 h-2.5 rounded-full bg-emerald-400 shadow-[0_0_10px_rgba(16,185,129,0.8)]" />
+                  <div className="sticky top-0 z-20 glass-nav backdrop-blur-2xl py-3 px-4 rounded-2xl mb-6 border border-white/20 flex items-center justify-between">
+                    <h3 className="text-lg font-heading font-extrabold text-white uppercase tracking-wider flex items-center gap-2">
+                      <span className="w-2.5 h-2.5 rounded-full bg-emerald-400 shadow-[0_0_12px_rgba(52,211,153,0.8)]" />
                       {league}
                     </h3>
-                    <span className="text-xs font-bold text-slate-400 glass-pill px-3 py-1 rounded-full">
+                    <span className="text-xs font-black text-emerald-300 glass-pill px-3 py-1 rounded-full border border-emerald-400/30">
                       {matches.length} Matches
                     </span>
                   </div>
