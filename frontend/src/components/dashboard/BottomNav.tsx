@@ -14,7 +14,7 @@ export const BottomNav = () => {
 
   return (
     <div className="fixed bottom-6 left-1/2 -translate-x-1/2 w-full max-w-sm px-4 z-50">
-      <nav className="glass-panel rounded-full p-2 flex items-center justify-between relative shadow-2xl shadow-black/50">
+      <nav className="glass-nav rounded-full p-2 flex items-center justify-between relative shadow-[0_10px_40px_rgba(0,0,0,0.8)] border border-white/15">
         {navItems.map((item) => {
           const isActive = location.pathname === item.path;
           return (
@@ -23,19 +23,19 @@ export const BottomNav = () => {
               to={item.path}
               className={clsx(
                 "relative flex flex-col items-center justify-center w-full h-14 rounded-full transition-colors z-10",
-                isActive ? "text-bg-base font-bold" : "text-slate-400 hover:text-white"
+                isActive ? "text-slate-950 font-bold" : "text-slate-400 hover:text-white"
               )}
             >
               {isActive && (
                 <motion.div
                   layoutId="activeTab"
-                  className="absolute inset-0 bg-primary rounded-full"
+                  className="absolute inset-0 bg-gradient-to-r from-emerald-400 to-teal-400 rounded-full shadow-[0_0_20px_rgba(16,185,129,0.5)]"
                   transition={{ type: "spring", stiffness: 400, damping: 30 }}
                 />
               )}
               <div className="relative z-20 flex flex-col items-center gap-1">
-                <item.icon size={20} className={isActive ? "text-bg-base" : ""} />
-                <span className="text-[10px] font-heading tracking-wide">{item.label}</span>
+                <item.icon size={20} className={isActive ? "text-slate-950 stroke-[2.5]" : "stroke-[1.8]"} />
+                <span className="text-[10px] font-heading font-extrabold tracking-wider uppercase">{item.label}</span>
               </div>
             </Link>
           );
