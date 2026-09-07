@@ -25,20 +25,20 @@ export const StatCards = () => {
       {stats.map((stat) => (
         <div
           key={stat.title}
-          className="glass-card rounded-3xl p-6 relative overflow-hidden group hover:border-emerald-400/50 transition-all border border-white/20"
+          className="glass-card rounded-none p-6 relative overflow-hidden group hover:border-emerald-400/50 transition-all border border-white/20"
         >
           <div className="flex justify-between items-start z-10 relative">
             <div>
               <p className="text-slate-300 text-xs font-black uppercase tracking-wider mb-1.5">{stat.title}</p>
               <h3 className="text-3xl font-heading font-black text-white mb-2">{stat.value}</h3>
-              <span className={`inline-block text-xs font-extrabold px-2.5 py-0.5 rounded-full border ${stat.badgeColor}`}>
+              <span className={`inline-block text-xs font-extrabold px-2.5 py-0.5 rounded-none border ${stat.badgeColor}`}>
                 {stat.trend}
               </span>
             </div>
           </div>
           
           {/* Subtle ambient glass glow */}
-          <div className="absolute -right-6 -bottom-6 w-28 h-28 rounded-full bg-emerald-400/15 blur-2xl group-hover:scale-150 transition-transform duration-500 pointer-events-none"></div>
+          <div className="absolute -right-6 -bottom-6 w-28 h-28 bg-emerald-400/15 blur-2xl group-hover:scale-150 transition-transform duration-500 pointer-events-none"></div>
         </div>
       ))}
     </div>

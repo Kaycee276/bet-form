@@ -14,7 +14,7 @@ export const BottomNav = () => {
 
   return (
     <div className="fixed bottom-6 left-1/2 -translate-x-1/2 w-full max-w-sm px-4 z-50">
-      <nav className="glass-nav rounded-full p-2 flex items-center justify-between relative shadow-[0_10px_40px_rgba(0,0,0,0.5)] border border-white/20">
+      <nav className="glass-nav rounded-none p-2 flex items-center justify-between relative shadow-[0_10px_40px_rgba(0,0,0,0.5)] border border-white/20">
         {navItems.map((item) => {
           const isActive = location.pathname === item.path;
           return (
@@ -22,14 +22,14 @@ export const BottomNav = () => {
               key={item.label}
               to={item.path}
               className={clsx(
-                "relative flex flex-col items-center justify-center w-full h-14 rounded-full transition-colors z-10",
+                "relative flex flex-col items-center justify-center w-full h-14 rounded-none transition-colors z-10",
                 isActive ? "text-slate-950 font-bold" : "text-slate-300 hover:text-white"
               )}
             >
               {isActive && (
                 <motion.div
                   layoutId="activeTab"
-                  className="absolute inset-0 bg-gradient-to-r from-emerald-400 to-teal-300 rounded-full shadow-[0_0_25px_rgba(52,211,153,0.6)]"
+                  className="absolute inset-0 bg-gradient-to-r from-emerald-400 to-teal-300 rounded-none shadow-[0_0_25px_rgba(52,211,153,0.6)]"
                   transition={{ type: "spring", stiffness: 400, damping: 30 }}
                 />
               )}

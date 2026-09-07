@@ -101,12 +101,12 @@ export const Dashboard = () => {
                 ),
               ).map(([league, matches]) => (
                 <div key={league}>
-                  <div className="sticky top-0 z-20 glass-nav backdrop-blur-2xl py-3 px-4 rounded-2xl mb-6 border border-white/20 flex items-center justify-between">
+                  <div className="sticky top-0 z-20 glass-nav backdrop-blur-2xl py-3 px-4 rounded-none mb-6 border border-white/20 flex items-center justify-between">
                     <h3 className="text-lg font-heading font-extrabold text-white uppercase tracking-wider flex items-center gap-2">
-                      <span className="w-2.5 h-2.5 rounded-full bg-emerald-400 shadow-[0_0_12px_rgba(52,211,153,0.8)]" />
+                      <span className="w-2.5 h-2.5 bg-emerald-400 shadow-[0_0_12px_rgba(52,211,153,0.8)]" />
                       {league}
                     </h3>
-                    <span className="text-xs font-black text-emerald-300 glass-pill px-3 py-1 rounded-full border border-emerald-400/30">
+                    <span className="text-xs font-black text-emerald-300 glass-pill px-3 py-1 rounded-none border border-emerald-400/30">
                       {matches.length} Matches
                     </span>
                   </div>
