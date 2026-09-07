@@ -3,7 +3,9 @@ import { Link } from "react-router-dom";
 import { MatchCard } from "../components/dashboard/MatchCard";
 import { DashboardLoader } from "../components/dashboard/DashboardLoader";
 import { BottomNav } from "../components/dashboard/BottomNav";
+import { StatCards } from "../components/dashboard/StatCards";
 import { motion } from "framer-motion";
+import { Calendar } from "lucide-react";
 
 const API_URL = import.meta.env.VITE_BACKEND_URL;
 
@@ -35,7 +37,7 @@ const container = {
 
 const item = {
   hidden: { opacity: 0, y: 20 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.5 } },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.4 } },
 };
 
 export const Dashboard = () => {
@@ -67,18 +69,31 @@ export const Dashboard = () => {
   }, []);
 
   return (
-    <div className="min-h-screen bg-bg-base flex flex-col relative pb-32">
+    <div className="min-h-screen bg-[#07090e] flex flex-col relative pb-32 overflow-hidden text-slate-100">
+      {/* Background ambient glows */}
+      <div className="absolute top-0 right-1/4 w-[500px] h-[500px] bg-emerald-500/10 rounded-full blur-[160px] pointer-events-none"></div>
+      <div className="absolute top-1/2 left-0 w-[400px] h-[400px] bg-blue-500/10 rounded-full blur-[140px] pointer-events-none"></div>
+
       <header className="pt-12 pb-6 px-6 relative z-10 max-w-7xl mx-auto w-full">
-        <h2 className="text-2xl md:text-3xl font-heading font-black tracking-tight text-white mb-2">
-          Upcoming Fixtures
-        </h2>
-        <p className="text-slate-400 font-medium text-xs">
-          Lock in your predictions before kickoff.
-        </p>
+        <div className="flex items-center gap-3 mb-2">
+          <div className="p-2.5 rounded-2xl glass-pill">
+            <Calendar size={22} className="text-emerald-400" />
+          </div>
+          <div>
+            <h2 className="text-2xl md:text-4xl font-heading font-black tracking-tight text-white">
+              Upcoming Fixtures
+            </h2>
+            <p className="text-slate-400 font-medium text-xs md:text-sm mt-0.5">
+              Lock in your tactical predictions before kickoff lockdown.
+            </p>
+          </div>
+        </div>
       </header>
 
       <main className="flex-1 px-6 relative z-10">
         <div className="max-w-7xl mx-auto w-full">
+          <StatCards />
+
           {isLoading ? (
             <DashboardLoader />
           ) : (
@@ -94,9 +109,16 @@ export const Dashboard = () => {
                 ),
               ).map(([league, matches]) => (
                 <div key={league}>
-                  <h3 className="sticky top-0 z-20 bg-bg-base py-4 text-xl font-heading font-bold text-white mb-6 border-l-4 border-primary pl-3 uppercase tracking-wider">
-                    {league}
-                  </h3>
+                  <div className="sticky top-0 z-20 glass-nav backdrop-blur-2xl py-3 px-4 rounded-2xl mb-6 border border-white/10 flex items-center justify-between">
+                    <h3 className="text-lg font-heading font-bold text-white uppercase tracking-wider flex items-center gap-2">
+                      <span className="w-2.5 h-2.5 rounded-full bg-emerald-400 shadow-[0_0_10px_rgba(16,185,129,0.8)]" />
+                      {league}
+                    </h3>
+                    <span className="text-xs font-bold text-slate-400 glass-pill px-3 py-1 rounded-full">
+                      {matches.length} Matches
+                    </span>
+                  </div>
+
                   <motion.div
                     variants={container}
                     initial="hidden"
