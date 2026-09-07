@@ -22,10 +22,10 @@ export class FixturesService {
   async findOne(id: string) {
     const f = await this.prisma.fixture.findUnique({
       where: { id },
-      include: { 
-        homeTeam: true, 
+      include: {
+        homeTeam: true,
         awayTeam: true,
-        squads: { include: { player: true } }
+        squads: { include: { player: true } },
       },
     });
     if (!f) return null;
@@ -35,7 +35,7 @@ export class FixturesService {
       homeTeamBadge: f.homeTeam?.badge,
       awayTeamName: f.awayTeam?.name,
       awayTeamBadge: f.awayTeam?.badge,
-      squads: f.squads.map(s => ({
+      squads: f.squads.map((s) => ({
         id: s.id,
         teamSide: s.teamSide,
         shirtNumber: s.shirtNumber,
@@ -44,8 +44,8 @@ export class FixturesService {
           name: s.player?.name,
           position: s.player?.position,
           photo: s.player?.photo,
-        }
-      }))
+        },
+      })),
     };
   }
 }
