@@ -24,26 +24,26 @@ export const CustomDropdown = ({ value, options, onChange, label }: CustomDropdo
   }, []);
 
   return (
-    <div className="relative w-full sm:w-40 z-30" ref={dropdownRef}>
+    <div className="relative w-full sm:w-44 z-30" ref={dropdownRef}>
       <div 
         onClick={() => setIsOpen(!isOpen)}
-        className="flex items-center justify-between bg-black/40 px-4 py-2.5 rounded-2xl border border-white/10 cursor-pointer hover:border-white/20 transition-colors"
+        className="flex items-center justify-between glass-input px-4 py-2.5 rounded-2xl cursor-pointer hover:border-emerald-500/40 transition-colors shadow-lg"
       >
         <div className="flex flex-col">
-          {label && <span className="text-[10px] text-slate-400 uppercase font-bold tracking-wider">{label}</span>}
-          <span className="text-white font-bold text-sm leading-tight">{value}</span>
+          {label && <span className="text-[10px] text-emerald-400 uppercase font-black tracking-wider">{label}</span>}
+          <span className="text-white font-heading font-extrabold text-sm leading-tight">{value}</span>
         </div>
-        <ChevronDown size={16} className={`text-slate-400 transition-transform ${isOpen ? 'rotate-180' : ''}`} />
+        <ChevronDown size={16} className={`text-slate-400 transition-transform ${isOpen ? 'rotate-180 text-emerald-400' : ''}`} />
       </div>
 
       <AnimatePresence>
         {isOpen && (
           <motion.div
-            initial={{ opacity: 0, y: -10, scale: 0.95 }}
+            initial={{ opacity: 0, y: -8, scale: 0.96 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: -10, scale: 0.95 }}
+            exit={{ opacity: 0, y: -8, scale: 0.96 }}
             transition={{ duration: 0.15, ease: "easeOut" }}
-            className="absolute top-full left-0 mt-2 w-full bg-[#121212] border border-white/10 rounded-xl overflow-hidden z-50 shadow-2xl"
+            className="absolute top-full left-0 mt-2 w-full glass-panel backdrop-blur-2xl border border-white/15 rounded-2xl overflow-hidden z-50 shadow-2xl"
           >
             {options.map((option) => (
               <div
@@ -52,8 +52,8 @@ export const CustomDropdown = ({ value, options, onChange, label }: CustomDropdo
                   onChange(option);
                   setIsOpen(false);
                 }}
-                className={`px-4 py-3 text-sm font-bold cursor-pointer transition-colors
-                  ${value === option ? 'text-primary bg-primary/10' : 'text-slate-300 hover:bg-white/5 hover:text-white'}`}
+                className={`px-4 py-3 text-xs font-heading font-extrabold cursor-pointer transition-colors
+                  ${value === option ? 'text-emerald-400 bg-emerald-500/15 border-l-4 border-emerald-400' : 'text-slate-300 hover:bg-white/10 hover:text-white'}`}
               >
                 {option}
               </div>
