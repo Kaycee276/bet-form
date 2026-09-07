@@ -36,7 +36,7 @@ export const PromotionalLanding = () => {
           </div>
           <button
             onClick={openModal}
-            className="px-6 py-2.5 glass-button-primary text-slate-950 font-extrabold rounded-full text-sm transition-all"
+            className="px-6 py-2.5 glass-button-primary text-slate-950 font-extrabold rounded-none text-sm transition-all"
           >
             Play Now
           </button>
@@ -51,8 +51,8 @@ export const PromotionalLanding = () => {
           variants={staggerContainer}
           className="text-center space-y-8 mt-12 md:mt-20"
         >
-          <motion.div variants={fadeIn} className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full glass-pill text-xs font-black uppercase tracking-wider mb-2 border border-emerald-400/40">
-            <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+          <motion.div variants={fadeIn} className="inline-flex items-center gap-2 px-4 py-1.5 rounded-none glass-pill text-xs font-black uppercase tracking-wider mb-2 border border-emerald-400/40">
+            <span className="w-2 h-2 rounded-none bg-emerald-400 animate-pulse" />
             Tactical Prediction Platform
           </motion.div>
 
@@ -81,7 +81,7 @@ export const PromotionalLanding = () => {
           >
             <button
               onClick={openModal}
-              className="group flex items-center gap-3 px-9 py-4 glass-button-primary text-slate-950 font-black rounded-full text-base"
+              className="group flex items-center gap-3 px-9 py-4 glass-button-primary text-slate-950 font-black rounded-none text-base"
             >
               Start Predicting
               <ArrowRight
@@ -137,7 +137,7 @@ export const PromotionalLanding = () => {
                 key={i}
                 variants={fadeIn}
                 whileHover={{ y: -6 }}
-                className="glass-card p-8 rounded-3xl group relative overflow-hidden border border-white/20"
+                className="glass-card p-8 rounded-none group relative overflow-hidden border border-white/20"
               >
                 <div className="text-3xl font-heading font-black text-emerald-400 mb-4 tracking-tight">
                   {step.num}
@@ -159,7 +159,7 @@ export const PromotionalLanding = () => {
           whileInView="visible"
           viewport={{ once: true }}
           variants={staggerContainer}
-          className="glass-panel glass-panel-glow rounded-[3rem] p-8 md:p-16 relative overflow-hidden border border-white/20"
+          className="glass-panel glass-panel-glow rounded-none p-8 md:p-16 relative overflow-hidden border border-white/20"
         >
           {/* Internal ambient glass glow */}
           <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-emerald-400/20 rounded-full blur-[120px] -translate-y-1/2 translate-x-1/2 pointer-events-none"></div>
@@ -215,7 +215,7 @@ export const PromotionalLanding = () => {
 
             <motion.div
               variants={fadeIn}
-              className="glass-card rounded-3xl p-8 relative shadow-2xl overflow-hidden border border-white/20"
+              className="glass-card rounded-none p-8 relative shadow-2xl overflow-hidden border border-white/20"
             >
               <div className="absolute -top-6 -right-6 w-32 h-32 bg-emerald-400/25 blur-3xl rounded-full pointer-events-none"></div>
               
