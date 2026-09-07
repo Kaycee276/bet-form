@@ -31,14 +31,13 @@ export const Pitch = ({ squad }: PitchProps) => {
   const allLines = [1, ...lines];
 
   return (
-    <div className="relative w-full aspect-[2/3] max-h-[620px] glass-pitch rounded-3xl overflow-hidden flex flex-col justify-between py-6 md:py-10 shadow-2xl">
+    <div className="relative w-full aspect-[2/3] max-h-[620px] glass-pitch rounded-none overflow-hidden flex flex-col justify-between py-6 md:py-10 shadow-2xl border border-emerald-400/40">
       {/* Tactical pitch lines with bright neon glass effect */}
-      <div className="absolute inset-0 border border-emerald-400/40 m-4 rounded-xl pointer-events-none" />
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-1/3 h-1/6 border border-t-0 border-emerald-400/40 rounded-b-xl pointer-events-none" />
-      <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-1/3 h-1/6 border border-b-0 border-emerald-400/40 rounded-t-xl pointer-events-none" />
+      <div className="absolute inset-0 border border-emerald-400/40 m-4 rounded-none pointer-events-none" />
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-1/3 h-1/6 border border-t-0 border-emerald-400/40 rounded-none pointer-events-none" />
+      <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-1/3 h-1/6 border border-b-0 border-emerald-400/40 rounded-none pointer-events-none" />
       <div className="absolute top-1/2 left-0 w-full h-px bg-emerald-400/40 pointer-events-none" />
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-24 h-24 md:w-32 md:h-32 border border-emerald-400/40 rounded-full pointer-events-none" />
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-2.5 h-2.5 bg-emerald-400/60 rounded-full pointer-events-none" />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-24 h-24 md:w-32 md:h-32 border border-emerald-400/40 rounded-none pointer-events-none" />
 
       {/* Render Rows (Reverse order to have GK at the bottom, ATT at the top) */}
       {[...allLines].reverse().map((count, rowIndex) => {
@@ -69,7 +68,7 @@ export const Pitch = ({ squad }: PitchProps) => {
                   className="relative flex flex-col items-center justify-center cursor-pointer group"
                 >
                   <div
-                    className={`w-12 h-12 md:w-16 md:h-16 rounded-full flex items-center justify-center border-2 transition-all duration-200 backdrop-blur-md shadow-xl
+                    className={`w-12 h-12 md:w-16 md:h-16 rounded-none flex items-center justify-center border-2 transition-all duration-200 backdrop-blur-md shadow-xl
                     ${
                       isSelected
                         ? "border-amber-300 bg-amber-400/40 shadow-[0_0_30px_rgba(251,191,36,0.8)]"
@@ -83,7 +82,7 @@ export const Pitch = ({ squad }: PitchProps) => {
                         <img
                           src={player.photo}
                           alt={player.name}
-                          className="w-full h-full object-cover rounded-full"
+                          className="w-full h-full object-cover rounded-none"
                         />
                       ) : (
                         <span className="text-white font-heading font-black text-xs">
@@ -98,7 +97,7 @@ export const Pitch = ({ squad }: PitchProps) => {
                   </div>
 
                   {/* Player Name Tag */}
-                  <div className={`mt-1.5 px-2.5 py-0.5 rounded-full text-[10px] md:text-xs font-heading font-black max-w-[75px] md:max-w-[95px] truncate text-center backdrop-blur-md shadow-lg border ${
+                  <div className={`mt-1.5 px-2.5 py-0.5 rounded-none text-[10px] md:text-xs font-heading font-black max-w-[75px] md:max-w-[95px] truncate text-center backdrop-blur-md shadow-lg border ${
                     isSelected
                       ? "bg-amber-500/30 text-amber-200 border-amber-300/50"
                       : player
@@ -115,7 +114,7 @@ export const Pitch = ({ squad }: PitchProps) => {
                         e.stopPropagation();
                         unassignPlayer(slotId);
                       }}
-                      className="absolute -top-1 -right-1 bg-rose-500 hover:bg-rose-600 text-white font-black rounded-full w-5 h-5 flex items-center justify-center text-[10px] opacity-0 group-hover:opacity-100 transition-opacity shadow-lg"
+                      className="absolute -top-1 -right-1 bg-rose-500 hover:bg-rose-600 text-white font-black rounded-none w-5 h-5 flex items-center justify-center text-[10px] opacity-0 group-hover:opacity-100 transition-opacity shadow-lg"
                     >
                       ✕
                     </button>

@@ -22,12 +22,12 @@ export const Leaderboard = () => {
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.5 }}
-            className="glass-card p-10 rounded-[3rem] flex flex-col items-center justify-center gap-6 text-center relative overflow-hidden w-full border border-white/20 shadow-2xl"
+            className="glass-card p-10 rounded-none flex flex-col items-center justify-center gap-6 text-center relative overflow-hidden w-full border border-white/20 shadow-2xl"
           >
-            <div className="absolute top-0 right-0 w-44 h-44 bg-amber-400/25 blur-3xl rounded-full translate-x-1/2 -translate-y-1/2 pointer-events-none"></div>
+            <div className="absolute top-0 right-0 w-44 h-44 bg-amber-400/25 blur-3xl rounded-none translate-x-1/2 -translate-y-1/2 pointer-events-none"></div>
 
             <div className="space-y-3 relative z-10">
-              <span className="inline-block glass-pill px-4 py-1.5 rounded-full text-xs font-black text-amber-300 uppercase tracking-wider border border-amber-400/40">
+              <span className="inline-block glass-pill px-4 py-1.5 rounded-none text-xs font-black text-amber-300 uppercase tracking-wider border border-amber-400/40">
                 Seasonal Rankings
               </span>
               

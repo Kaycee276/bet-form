@@ -61,8 +61,8 @@ export const PredictFixture = () => {
     return (
       <div className="min-h-screen bg-slate-900 flex items-center justify-center">
         <div className="relative w-14 h-14">
-          <div className="absolute inset-0 rounded-full border-t-2 border-emerald-400 animate-spin"></div>
-          <div className="absolute inset-2 rounded-full border-r-2 border-teal-300 animate-spin opacity-60"></div>
+          <div className="absolute inset-0 rounded-none border-t-2 border-emerald-400 animate-spin"></div>
+          <div className="absolute inset-2 rounded-none border-r-2 border-teal-300 animate-spin opacity-60"></div>
         </div>
       </div>
     );
@@ -84,7 +84,7 @@ export const PredictFixture = () => {
       <header className="pt-8 pb-6 px-6 max-w-7xl mx-auto w-full border-b border-white/15 mb-6 relative z-10">
         <button 
           onClick={() => navigate(-1)}
-          className="flex items-center gap-2 text-slate-200 hover:text-white mb-6 transition-colors text-xs font-black uppercase tracking-wider glass-pill px-4 py-1.5 rounded-full border border-white/20 w-fit"
+          className="flex items-center gap-2 text-slate-200 hover:text-white mb-6 transition-colors text-xs font-black uppercase tracking-wider glass-pill px-4 py-1.5 rounded-none border border-white/20 w-fit"
         >
           <ArrowLeft size={14} /> Back to Fixtures
         </button>
@@ -99,7 +99,7 @@ export const PredictFixture = () => {
             </p>
           </div>
           
-          <button disabled className="glass-button-secondary text-slate-300 font-extrabold px-6 py-2.5 rounded-full cursor-not-allowed whitespace-nowrap w-full md:w-auto text-xs uppercase tracking-wider border border-white/20">
+          <button disabled className="glass-button-secondary text-slate-300 font-extrabold px-6 py-2.5 rounded-none cursor-not-allowed whitespace-nowrap w-full md:w-auto text-xs uppercase tracking-wider border border-white/20">
             Lock Prediction
           </button>
         </div>
@@ -108,12 +108,12 @@ export const PredictFixture = () => {
       <main className="flex-1 px-6 w-full max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-8 relative z-10">
         <div className="lg:col-span-8 flex flex-col gap-6">
           {/* Glass Controls Panel */}
-          <div className="glass-panel p-4 rounded-3xl flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 border border-white/20 shadow-2xl">
+          <div className="glass-panel p-4 rounded-none flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 border border-white/20 shadow-2xl">
             {/* Team Toggle */}
-            <div className="flex bg-slate-800/80 p-1.5 rounded-full w-full sm:w-auto border border-white/15">
+            <div className="flex bg-slate-800/80 p-1.5 rounded-none w-full sm:w-auto border border-white/15">
               <button 
                 onClick={() => setSelectedTeam("HOME")}
-                className={`flex-1 sm:flex-none px-6 py-2 rounded-full text-xs font-heading font-black transition-all ${
+                className={`flex-1 sm:flex-none px-6 py-2 rounded-none text-xs font-heading font-black transition-all ${
                   selectedTeam === "HOME" 
                     ? 'glass-button-primary text-slate-950 shadow-lg' 
                     : 'text-slate-200 hover:text-white'
@@ -123,7 +123,7 @@ export const PredictFixture = () => {
               </button>
               <button 
                 onClick={() => setSelectedTeam("AWAY")}
-                className={`flex-1 sm:flex-none px-6 py-2 rounded-full text-xs font-heading font-black transition-all ${
+                className={`flex-1 sm:flex-none px-6 py-2 rounded-none text-xs font-heading font-black transition-all ${
                   selectedTeam === "AWAY" 
                     ? 'glass-button-primary text-slate-950 shadow-lg' 
                     : 'text-slate-200 hover:text-white'

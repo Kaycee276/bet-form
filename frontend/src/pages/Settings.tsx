@@ -25,9 +25,9 @@ export const Settings = () => {
           <motion.div 
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
-            className="glass-card rounded-[2.5rem] p-6 flex items-center gap-5 border border-white/20 shadow-2xl"
+            className="glass-card rounded-none p-6 flex items-center gap-5 border border-white/20 shadow-2xl"
           >
-            <div className="w-16 h-16 rounded-2xl bg-slate-800 border border-emerald-400/40 flex items-center justify-center overflow-hidden shrink-0 shadow-lg font-heading font-black text-emerald-300 text-xl">
+            <div className="w-16 h-16 rounded-none bg-slate-800 border border-emerald-400/40 flex items-center justify-center overflow-hidden shrink-0 shadow-lg font-heading font-black text-emerald-300 text-xl">
               {user?.user_metadata?.avatar_url ? (
                 <img src={user.user_metadata.avatar_url} alt="Avatar" className="w-full h-full object-cover" />
               ) : (
@@ -47,21 +47,21 @@ export const Settings = () => {
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.1 }}
-            className="glass-card rounded-[2.5rem] p-3 space-y-1 border border-white/20 shadow-xl"
+            className="glass-card rounded-none p-3 space-y-1 border border-white/20 shadow-xl"
           >
-            <div className="w-full flex items-center justify-between p-4 rounded-2xl">
+            <div className="w-full flex items-center justify-between p-4 rounded-none">
               <span className="font-heading text-sm font-bold text-slate-200">Push Notifications</span>
-              <div className="w-11 h-6 bg-emerald-400 rounded-full relative shadow-inner p-1">
-                <div className="w-4 h-4 bg-slate-900 rounded-full shadow-md ml-auto"></div>
+              <div className="w-11 h-6 bg-emerald-400 rounded-none relative shadow-inner p-1">
+                <div className="w-4 h-4 bg-slate-900 rounded-none shadow-md ml-auto"></div>
               </div>
             </div>
 
-            <button className="w-full flex items-center justify-between p-4 rounded-2xl hover:bg-white/10 transition-colors text-left">
+            <button className="w-full flex items-center justify-between p-4 rounded-none hover:bg-white/10 transition-colors text-left">
               <span className="font-heading text-sm font-bold text-slate-200">Privacy Policy</span>
               <span className="text-xs text-slate-400 font-black">→</span>
             </button>
 
-            <button className="w-full flex items-center justify-between p-4 rounded-2xl hover:bg-white/10 transition-colors text-left">
+            <button className="w-full flex items-center justify-between p-4 rounded-none hover:bg-white/10 transition-colors text-left">
               <span className="font-heading text-sm font-bold text-slate-200">Terms of Service</span>
               <span className="text-xs text-slate-400 font-black">→</span>
             </button>
@@ -72,7 +72,7 @@ export const Settings = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2 }}
             onClick={signOut}
-            className="w-full flex items-center justify-center gap-2 bg-rose-500/20 hover:bg-rose-500/30 text-rose-300 text-sm font-heading font-black py-4 rounded-[2.5rem] border border-rose-400/40 transition-all cursor-pointer shadow-lg"
+            className="w-full flex items-center justify-center gap-2 bg-rose-500/20 hover:bg-rose-500/30 text-rose-300 text-sm font-heading font-black py-4 rounded-none border border-rose-400/40 transition-all cursor-pointer shadow-lg"
           >
             <span>Sign Out Session</span>
           </motion.button>
