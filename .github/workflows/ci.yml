@@ -62,3 +62,31 @@ jobs:
       - name: Run Typecheck & Build
         run: pnpm run build
         working-directory: ./backend
+
+  contracts-ci:
+    name: Soroban Smart Contracts CI
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install Rust Toolchain & Target
+        uses: dtolnay/rust-toolchain@stable
+        with:
+          targets: wasm32v1-none
+          components: clippy, rustfmt
+
+      - name: Cargo Format Check
+        run: cargo fmt --check
+        working-directory: ./contracts/betform_contest
+
+      - name: Cargo Clippy Lint Check
+        run: cargo clippy -- -D warnings
+        working-directory: ./contracts/betform_contest
+
+      - name: Run Unit Tests
+        run: cargo test
+        working-directory: ./contracts/betform_contest
+
+      - name: Build WASM Contract Target
+        run: cargo build --target wasm32v1-none --release
+        working-directory: ./contracts/betform_contest

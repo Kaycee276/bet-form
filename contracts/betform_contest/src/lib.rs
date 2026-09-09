@@ -1,7 +1,5 @@
 #![no_std]
-use soroban_sdk::{
-    contract, contractimpl, contracttype, token, Address, BytesN, Env, Symbol, Vec,
-};
+use soroban_sdk::{contract, contractimpl, contracttype, token, Address, BytesN, Env, Symbol, Vec};
 
 #[contracttype]
 #[derive(Clone, Debug, Eq, PartialEq)]
@@ -81,12 +79,7 @@ impl BetFormContestContract {
     }
 
     /// Enter a contest by staking USDC entry fee and locking a prediction hash
-    pub fn enter_contest(
-        env: Env,
-        user: Address,
-        contest_id: Symbol,
-        prediction_hash: BytesN<32>,
-    ) {
+    pub fn enter_contest(env: Env, user: Address, contest_id: Symbol, prediction_hash: BytesN<32>) {
         user.require_auth();
 
         let contest_key = DataKey::Contest(contest_id.clone());
@@ -113,7 +106,8 @@ impl BetFormContestContract {
         if contest.entry_fee > 0 {
             let token_addr: Address = env.storage().instance().get(&DataKey::Token).unwrap();
             let token_client = token::Client::new(&env, &token_addr);
-            token_client.transfer(&user, &env.current_contract_address(), &contest.entry_fee);
+            let contract_addr = env.current_contract_address();
+            token_client.transfer(&user, &contract_addr, &contest.entry_fee);
         }
 
         let entry = PredictionEntry {
@@ -156,9 +150,10 @@ impl BetFormContestContract {
         }
 
         let total_pool = contest.pool_balance;
-        if total_pool > 0 && winners.len() > 0 {
+        if total_pool > 0 && !winners.is_empty() {
             let token_addr: Address = env.storage().instance().get(&DataKey::Token).unwrap();
             let token_client = token::Client::new(&env, &token_addr);
+            let contract_addr = env.current_contract_address();
 
             for i in 0..winners.len() {
                 let winner = winners.get(i).unwrap();
@@ -166,11 +161,7 @@ impl BetFormContestContract {
                 let payout_amount = (total_pool * (share_bps as i128)) / 10000;
 
                 if payout_amount > 0 {
-                    token_client.transfer(
-                        &env.current_contract_address(),
-                        &winner,
-                        &payout_amount,
-                    );
+                    token_client.transfer(&contract_addr, &winner, &payout_amount);
                 }
             }
         }
@@ -182,13 +173,19 @@ impl BetFormContestContract {
     /// Get contest metadata
     pub fn get_contest(env: Env, contest_id: Symbol) -> Contest {
         let contest_key = DataKey::Contest(contest_id);
-        env.storage().persistent().get(&contest_key).expect("contest not found")
+        env.storage()
+            .persistent()
+            .get(&contest_key)
+            .expect("contest not found")
     }
 
     /// Get user entry
     pub fn get_entry(env: Env, contest_id: Symbol, user: Address) -> PredictionEntry {
         let entry_key = DataKey::Entry(contest_id, user);
-        env.storage().persistent().get(&entry_key).expect("entry not found")
+        env.storage()
+            .persistent()
+            .get(&entry_key)
+            .expect("entry not found")
     }
 }
 

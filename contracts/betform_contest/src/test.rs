@@ -1,11 +1,7 @@
 #![cfg(test)]
 
 use super::*;
-use soroban_sdk::{
-    symbol_short,
-    testutils::Address as _,
-    token, Address, BytesN, Env, Vec,
-};
+use soroban_sdk::{symbol_short, testutils::Address as _, token, Address, BytesN, Env, Vec};
 
 #[test]
 fn test_contest_flow() {
