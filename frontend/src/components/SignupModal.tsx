@@ -1,10 +1,12 @@
-import { X } from "lucide-react";
+import { X, Wallet } from "lucide-react";
 import { useModalStore } from "../store/useModalStore";
+import { useStellarWallet } from "../context/StellarWalletContext";
 import { supabase } from "../lib/supabase";
 import { motion, AnimatePresence } from "framer-motion";
 
 export const SignupModal = () => {
   const { isOpen, closeModal } = useModalStore();
+  const { isConnected, publicKey, connectWallet, isConnecting, error: walletError } = useStellarWallet();
 
   const handleGoogleLogin = async () => {
     const { error } = await supabase.auth.signInWithOAuth({
@@ -16,6 +18,13 @@ export const SignupModal = () => {
 
     if (error) {
       console.error('Error logging in with Google:', error.message);
+    }
+  };
+
+  const handleConnectWallet = async () => {
+    const key = await connectWallet();
+    if (key) {
+      closeModal();
     }
   };
 
@@ -53,17 +62,46 @@ export const SignupModal = () => {
               </button>
             </div>
 
-            <div className="p-8 space-y-8 relative z-10">
+            <div className="p-8 space-y-6 relative z-10">
               <p className="text-slate-200 text-sm text-center leading-relaxed font-medium">
-                Sign in to predict upcoming football fixtures, build starting XIs, and climb the global tactical leaderboard.
+                Sign in to predict upcoming football fixtures, enter USDC contest pools, and climb the tactical leaderboard.
               </p>
 
-              <button 
-                onClick={handleGoogleLogin}
-                className="w-full flex items-center justify-center gap-3 bg-white hover:bg-slate-100 text-slate-950 py-3.5 px-6 rounded-none text-sm font-heading font-black transition-all cursor-pointer hover:scale-[1.02] active:scale-[0.98] shadow-[0_0_30px_rgba(255,255,255,0.3)] border border-white"
-              >
-                Continue with Google
-              </button>
+              {walletError && (
+                <div className="p-3 bg-rose-500/20 border border-rose-400/40 text-rose-300 text-xs font-mono">
+                  {walletError}
+                </div>
+              )}
+
+              <div className="space-y-3">
+                <button 
+                  onClick={handleGoogleLogin}
+                  className="w-full flex items-center justify-center gap-3 bg-white hover:bg-slate-100 text-slate-950 py-3.5 px-6 rounded-none text-sm font-heading font-black transition-all cursor-pointer hover:scale-[1.02] active:scale-[0.98] shadow-[0_0_30px_rgba(255,255,255,0.3)] border border-white"
+                >
+                  Continue with Google
+                </button>
+
+                <div className="relative flex py-2 items-center">
+                  <div className="flex-grow border-t border-white/10"></div>
+                  <span className="flex-shrink mx-4 text-slate-400 font-heading text-xs uppercase font-bold">Or Web3</span>
+                  <div className="flex-grow border-t border-white/10"></div>
+                </div>
+
+                <button 
+                  onClick={handleConnectWallet}
+                  disabled={isConnecting}
+                  className="w-full flex items-center justify-center gap-3 bg-emerald-500/20 hover:bg-emerald-500/30 text-emerald-300 py-3.5 px-6 rounded-none text-sm font-heading font-black transition-all cursor-pointer hover:scale-[1.02] active:scale-[0.98] border border-emerald-400/50 shadow-[0_0_20px_rgba(52,211,153,0.2)]"
+                >
+                  <Wallet size={18} />
+                  <span>
+                    {isConnecting
+                      ? "Connecting..."
+                      : isConnected && publicKey
+                      ? `Connected: ${publicKey.substring(0, 6)}...${publicKey.substring(publicKey.length - 4)}`
+                      : "Connect Stellar Freighter"}
+                  </span>
+                </button>
+              </div>
             </div>
           </motion.div>
         </div>
@@ -71,3 +109,4 @@ export const SignupModal = () => {
     </AnimatePresence>
   );
 };
+
