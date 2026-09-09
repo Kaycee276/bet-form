@@ -50,9 +50,12 @@ export const SignupModal = () => {
             <div className="absolute top-0 right-0 w-64 h-64 bg-emerald-400/25 blur-3xl rounded-none translate-x-1/3 -translate-y-1/3 pointer-events-none"></div>
 
             <div className="flex items-center justify-between p-6 border-b border-white/15 relative z-10">
-              <div className="flex items-center gap-2 font-heading font-black text-xl tracking-tight">
-                <span className="text-white">Join</span>
-                <span className="text-emerald-400 drop-shadow-[0_0_10px_rgba(52,211,153,0.6)]">BetForm</span>
+              <div className="flex items-center gap-2.5 font-heading font-black text-xl tracking-tight">
+                <img src="/logo.png" alt="BetForm Logo" className="w-6 h-6 rounded-none border border-emerald-400/40 shadow-[0_0_8px_rgba(52,211,153,0.5)] object-cover" />
+                <div>
+                  <span className="text-white">Join </span>
+                  <span className="text-emerald-400 drop-shadow-[0_0_10px_rgba(52,211,153,0.6)]">BetForm</span>
+                </div>
               </div>
               <button
                 onClick={closeModal}

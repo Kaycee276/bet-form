@@ -30,9 +30,12 @@ export const PromotionalLanding = () => {
       {/* Glass Header */}
       <header className="fixed top-0 w-full z-50 glass-nav border-b border-white/15">
         <div className="max-w-6xl mx-auto px-6 h-20 flex items-center justify-between">
-          <div className="flex items-center gap-2 font-heading font-black text-2xl tracking-tight">
-            <span className="text-white">Bet</span>
-            <span className="text-emerald-400 drop-shadow-[0_0_12px_rgba(52,211,153,0.6)]">Form</span>
+          <div className="flex items-center gap-3 font-heading font-black text-2xl tracking-tight">
+            <img src="/logo.png" alt="BetForm Logo" className="w-8 h-8 rounded-none border border-emerald-400/40 shadow-[0_0_12px_rgba(52,211,153,0.5)] object-cover" />
+            <div>
+              <span className="text-white">Bet</span>
+              <span className="text-emerald-400 drop-shadow-[0_0_12px_rgba(52,211,153,0.6)]">Form</span>
+            </div>
           </div>
           <button
             onClick={openModal}
