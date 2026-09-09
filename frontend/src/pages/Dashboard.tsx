@@ -73,13 +73,19 @@ export const Dashboard = () => {
       <div className="absolute top-0 right-1/4 w-[600px] h-[600px] bg-emerald-400/20 rounded-full blur-[160px] pointer-events-none"></div>
       <div className="absolute top-1/2 left-0 w-[500px] h-[500px] bg-cyan-400/20 rounded-full blur-[140px] pointer-events-none"></div>
 
-      <header className="pt-12 pb-6 px-6 relative z-10 max-w-7xl mx-auto w-full">
-        <h2 className="text-3xl md:text-5xl font-heading font-black tracking-tight text-white mb-1">
-          Upcoming Fixtures
-        </h2>
-        <p className="text-slate-300 font-medium text-xs md:text-sm">
-          Lock in your tactical predictions before kickoff lockdown.
-        </p>
+      <header className="pt-12 pb-6 px-6 relative z-10 max-w-7xl mx-auto w-full flex items-center justify-between">
+        <div>
+          <div className="flex items-center gap-2 mb-2">
+            <img src="/logo.png" alt="BetForm Logo" className="w-6 h-6 rounded-none border border-emerald-400/40 shadow-[0_0_8px_rgba(52,211,153,0.5)] object-cover" />
+            <span className="text-xs font-heading font-black tracking-wider uppercase text-emerald-400">BetForm Dashboard</span>
+          </div>
+          <h2 className="text-3xl md:text-5xl font-heading font-black tracking-tight text-white mb-1">
+            Upcoming Fixtures
+          </h2>
+          <p className="text-slate-300 font-medium text-xs md:text-sm">
+            Lock in your tactical predictions before kickoff lockdown.
+          </p>
+        </div>
       </header>
 
       <main className="flex-1 px-6 relative z-10">

@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="frontend/public/logo.png" width="100" alt="BetForm Logo" />
+</p>
+
 # Local Development & CI Verification Guide 🛠️
 
 This document outlines how to set up, run, and verify BetForm locally before opening Pull Requests.

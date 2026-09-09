@@ -131,6 +131,10 @@ export const PredictFixture = () => {
 
         <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
           <div>
+            <div className="flex items-center gap-2 mb-1.5">
+              <img src="/logo.png" alt="BetForm Logo" className="w-5 h-5 rounded-none border border-emerald-400/40 shadow-[0_0_8px_rgba(52,211,153,0.5)] object-cover" />
+              <span className="text-xs font-heading font-black tracking-wider uppercase text-emerald-400">BetForm Studio</span>
+            </div>
             <h2 className="text-2xl md:text-4xl font-heading font-black tracking-tight text-white mb-1">
               Tactical Lineup Studio
             </h2>

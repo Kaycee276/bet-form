@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="frontend/public/logo.png" width="100" alt="BetForm Logo" />
+</p>
+
 # Contributor Covenant Code of Conduct
 
 ## Our Pledge

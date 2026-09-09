@@ -1,6 +1,10 @@
+<p align="center">
+  <img src="frontend/public/logo.png" width="140" alt="BetForm Logo" />
+</p>
+
 # BetForm ⚽
 
-> **A football tactical prediction game.** Predict starting formations and starting XIs for football matches, compete on a skill-based global leaderboard, and earn points through an odds-weighted scoring system. No real money involved — just pure tactical glory.
+> **A football tactical prediction game.** Predict starting formations and starting XIs for football matches, compete on a skill-based global leaderboard, and stake optional USDC contest pools on Stellar Soroban.
 
 ---
 

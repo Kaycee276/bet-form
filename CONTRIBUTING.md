@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="frontend/public/logo.png" width="100" alt="BetForm Logo" />
+</p>
+
 # Contributing to BetForm ⚽
 
 First off, thank you for considering contributing to BetForm! It's open-source projects like this that make the developer community an amazing place to learn, inspire, and create.

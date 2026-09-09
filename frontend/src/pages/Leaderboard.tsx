@@ -8,6 +8,10 @@ export const Leaderboard = () => {
       <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[600px] h-[600px] bg-amber-400/20 rounded-full blur-[160px] pointer-events-none"></div>
 
       <header className="pt-12 pb-6 px-6 relative z-10 max-w-xl mx-auto w-full">
+        <div className="flex items-center gap-2 mb-2">
+          <img src="/logo.png" alt="BetForm Logo" className="w-6 h-6 rounded-none border border-emerald-400/40 shadow-[0_0_8px_rgba(52,211,153,0.5)] object-cover" />
+          <span className="text-xs font-heading font-black tracking-wider uppercase text-emerald-400">BetForm Leaderboard</span>
+        </div>
         <h2 className="text-3xl md:text-5xl font-heading font-black tracking-tight text-white mb-1">
           Global Leaderboard
         </h2>
