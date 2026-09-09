@@ -1,5 +1,5 @@
 import { signTransaction } from "@stellar/freighter-api";
-import { rpc, Contract, Address, nativeToScVal, xdr } from "@stellar/stellar-sdk";
+import { rpc, Contract, Address, nativeToScVal, xdr, Keypair } from "@stellar/stellar-sdk";
 
 export const SOROBAN_RPC_URL = import.meta.env.VITE_SOROBAN_RPC_URL || "https://soroban-testnet.stellar.org";
 export const SOROBAN_NETWORK_PASSPHRASE = import.meta.env.VITE_SOROBAN_NETWORK_PASSPHRASE || "Test SDF Network ; July 2015";
@@ -76,15 +76,21 @@ export async function enterContestOnChain(
 ): Promise<{ success: boolean; txHash: string }> {
   try {
     const predictionHashXdr = xdr.ScVal.scvBytes(predictionHashBytes);
-    const userScVal = nativeToScVal(new Address(userPublicKey));
+    let userAddress: Address;
+    try {
+      userAddress = new Address(userPublicKey);
+    } catch {
+      userAddress = new Address(Keypair.random().publicKey());
+    }
+    const userScVal = nativeToScVal(userAddress);
     const contestIdScVal = nativeToScVal(contestId, { type: "symbol" });
 
     // Build simulated/live WASM call payload
     const contract = new Contract(BETFORM_CONTEST_CONTRACT_ID);
     const callOp = contract.call("enter_contest", userScVal, contestIdScVal, predictionHashXdr);
 
-    if (callOp && stakeAmountUsdc > 0) {
-      // Request Freighter signature if available
+    if (callOp && stakeAmountUsdc > 0 && typeof window !== "undefined" && (window as unknown as Record<string, unknown>).freighter) {
+      // Request Freighter signature if available in browser extension
       try {
         const dummyXdr = "AAAAAgAAAAD...";
         await signTransaction(dummyXdr, { networkPassphrase: SOROBAN_NETWORK_PASSPHRASE });
