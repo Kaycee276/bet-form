@@ -4,7 +4,7 @@ import { rpc, Contract, Address, nativeToScVal, xdr, Keypair } from "@stellar/st
 export const SOROBAN_RPC_URL = import.meta.env.VITE_SOROBAN_RPC_URL || "https://soroban-testnet.stellar.org";
 export const SOROBAN_NETWORK_PASSPHRASE = import.meta.env.VITE_SOROBAN_NETWORK_PASSPHRASE || "Test SDF Network ; July 2015";
 // Deployed BetForm Contest Contract ID on Stellar Testnet
-export const BETFORM_CONTEST_CONTRACT_ID = import.meta.env.VITE_BETFORM_CONTEST_CONTRACT_ID || "CAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD2KM";
+export const BETFORM_CONTEST_CONTRACT_ID = import.meta.env.VITE_BETFORM_CONTEST_CONTRACT_ID || "CDWAKM4624EJ4XQL7NSS2IOU2LWARO7GWQIZHMWKENL3IWC6NEOIETSH";
 
 export const getSorobanServer = () => new rpc.Server(SOROBAN_RPC_URL);
 
