@@ -11,8 +11,7 @@ export default defineConfig({
   datasource: {
     url:
       process.env['DIRECT_URL'] ||
-      (() => {
-        throw new Error('DIRECT_URL environment variable is required');
-      })(),
+      process.env['DATABASE_URL'] ||
+      'postgresql://postgres:postgres@localhost:5432/betform',
   },
 });
