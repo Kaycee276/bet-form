@@ -1,0 +1,48 @@
+name: 📜 Smart Contract Feature or Issue
+description: Propose a Soroban smart contract enhancement, optimization, or security patch
+title: "[CONTRACTS]: "
+labels: ["smart-contracts", "stellar", "triage"]
+body:
+  - type: markdown
+    attributes:
+      value: Thank you for contributing to BetForm's Stellar Soroban smart contracts!
+  - type: textarea
+    id: overview
+    attributes:
+      label: Contract Overview & Motivation
+      description: Describe the Soroban contract method, security patch, or feature to be implemented.
+    validations:
+      required: true
+  - type: dropdown
+    id: component
+    attributes:
+      label: Target Component
+      options:
+        - "Contest Lifecycle (initialize, create_contest, lock_contest)"
+        - "USDC Escrow & Entry Staking"
+        - "Oracle Settlement & Prize Distribution"
+        - "Emergency Circuit Breaker / Access Control"
+        - "Soroban Gas & Storage Optimization"
+        - "Unit & Integration Testing (test.rs)"
+    validations:
+      required: true
+  - type: textarea
+    id: technical_details
+    attributes:
+      label: Technical Specification & Implementation Plan
+      description: Detail proposed Rust functions, data keys, storage layout, or testing strategy.
+    validations:
+      required: true
+  - type: checkboxes
+    id: checklist
+    attributes:
+      label: Contribution Checklist
+      options:
+        - label: "Targets the `dev` branch"
+          required: true
+        - label: "Passes `cargo fmt --check` and `cargo clippy -- -D warnings`"
+          required: true
+        - label: "Includes unit tests verified with `cargo test`"
+          required: true
+        - label: "Builds `wasm32v1-none` release bytecode"
+          required: true
