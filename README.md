@@ -4,67 +4,104 @@
 
 # BetForm ⚽
 
-> **A football tactical prediction game.** Predict starting formations and starting XIs for football matches, compete on a skill-based global leaderboard, and stake optional USDC contest pools on Stellar Soroban.
+> **A decentralized football tactical prediction game.** Predict starting formations and starting XIs for top football fixtures, compete on a skill-based global leaderboard, and stake USDC in non-custodial contest pools powered by **Stellar Soroban smart contracts**.
+
+<p align="center">
+  <a href="https://github.com/Kaycee276/bet-form/actions/workflows/ci.yml"><img src="https://github.com/Kaycee276/bet-form/actions/workflows/ci.yml/badge.svg?branch=dev" alt="CI Status" /></a>
+  <a href="https://opensource.org/licenses/MIT"><img src="https://img.shields.io/badge/License-MIT-blue.svg" alt="License: MIT" /></a>
+  <a href="https://stellar.org"><img src="https://img.shields.io/badge/Network-Stellar-black.svg?logo=stellar" alt="Stellar Network" /></a>
+  <a href="https://soroban.stellar.org"><img src="https://img.shields.io/badge/Smart%20Contracts-Soroban%20Rust-purple.svg" alt="Soroban Smart Contracts" /></a>
+</p>
 
 ---
 
 ## Table of Contents
 
 - [Overview](#overview)
-- [Features](#features)
+- [Key Features](#key-features)
+- [Stellar & Soroban Architecture](#stellar--soroban-architecture)
 - [Tech Stack](#tech-stack)
 - [Project Structure](#project-structure)
 - [Getting Started](#getting-started)
 - [Scoring System](#scoring-system)
 - [Fixture Status Lifecycle](#fixture-status-lifecycle)
-- [Business Rules](#business-rules)
-- [Out of Scope](#out-of-scope)
+- [Contributing](#contributing)
+- [License](#license)
 
 ---
 
 ## Overview
 
-BetForm lets football fans put their tactical knowledge to the test. Before each football match, users pick a team, choose a formation from 15 options, and select the exact 11 players they believe will start. After the match, predictions are automatically scored using a proximity-based, odds-weighted algorithm — meaning bold, accurate calls are rewarded more than obvious ones.
+BetForm allows football enthusiasts to put their tactical knowledge to the test. Before kickoff, users pick a match, select a formation from 15 tactical layouts, and choose the exact 11 players they predict will start. Predictions are scored using a proximity-based, odds-weighted algorithm — rewarding bold, accurate calls over obvious selections.
+
+Players can participate in free social competitions or enter **USDC-staked decentralized contest pools** escrowed by Soroban smart contracts on the Stellar blockchain.
 
 ---
 
-## Features
+## Key Features
 
-| Area | Details |
+| Feature | Details |
 |---|---|
-| **Authentication** | Google OAuth via Supabase Auth; username setup on first login |
-| **Fixtures** | Upcoming football fixtures synced daily from API-Football, grouped by date |
-| **Prediction Flow** | 3-step flow: Formation → Starting XI → Review & Submit |
-| **Formations** | 15 formations with individual odds (4-3-3 through 3-3-3-1) |
-| **XI Selection** | Position-filtered player dropdowns; selected players removed from other slots |
-| **Live Pitch Visual** | Interactive pitch updates in real-time as players are selected |
-| **Leaderboard** | Global ranking table sorted by total points; current user highlighted |
-| **Scoring** | Odds-based: formation odds × 2 + proximity score × slot odds per player |
-| **Admin Panel** | Manual lineup input for fixtures with delayed lineup data |
-| **Settings** | Profile management, scoring explanation modal, sign-out |
+| **Stellar Soroban Escrow** | Non-custodial contest pools; USDC stakes escrowed and distributed via smart contract |
+| **Tactical Prediction Flow** | 3-step submission: Formation Selection → XI Builder → Review & On-Chain Staking |
+| **15 Tactical Formations** | Comprehensive odds engine from standard 4-3-3 to niche 3-3-3-1 formations |
+| **Interactive Pitch Visual** | Real-time SVG pitch visualization updating instantly upon player selection |
+| **Proximity Scoring Engine** | Multi-tier scoring evaluating position proximity (exact, adjacent, nearby) |
+| **Automated Verification** | Backend oracle settles fixtures using verified match lineup feeds |
+| **Global Leaderboard** | Real-time global ranking table tracking historical prediction performance |
+
+---
+
+## Stellar & Soroban Architecture
+
+The on-chain layer (`contracts/betform_contest/`) handles decentralized contest pool creation, entry staking, and prize settlement on Stellar:
+
+```
+[ Contributor / User ]
+         │  Freighter Wallet / Stellar SDK
+         ▼
+[ Frontend (React 19) ]
+         │  USDC Stake + SHA-256 Prediction Hash
+         ▼
+[ Soroban Smart Contract (Rust) ] ◄── [ Backend Oracle (NestJS) ]
+         │                                       │
+         ├─ enter_contest(user, contest_id)      └─ settle_contest(contest_id, winners)
+         └─ Automated USDC Payout to Leaderboard Winners
+```
+
+- **`initialize(admin, usdc_token)`**: Configures the platform administrator and the Stellar USDC token contract address.
+- **`create_contest(contest_id, entry_fee, lock_time)`**: Initializes a new contest pool tied to a football fixture.
+- **`enter_contest(user, contest_id, prediction_hash)`**: Escrows the user's USDC entry fee and records their immutable prediction hash on-chain.
+- **`settle_contest(contest_id, winners)`**: Disburses the escrowed USDC prize pool directly to winning addresses based on verified match scores.
 
 ---
 
 ## Tech Stack
 
-### Frontend
-
-| Technology | Version | Purpose |
+### Smart Contracts (Stellar / Soroban)
+| Component | Technology | Purpose |
 |---|---|---|
-| React | 19 | UI framework |
-| TypeScript | ~6.0 | Type safety |
-| Vite | 8.x | Build tool & dev server |
-| Tailwind CSS | 4.x | Utility-first styling |
-| Zustand | 5.x | Lightweight global state management |
-| Lucide React | 1.x | Icon library |
+| Language | Rust (`no_std`) | Memory-safe smart contract implementation |
+| SDK | `soroban-sdk` 22.x | Stellar smart contract framework |
+| Compilation Target | `wasm32v1-none` | Production WebAssembly contract target |
+| Tooling | Stellar CLI / Cargo | Local sandbox, contract building, and testnet deployment |
 
-### Backend / Infrastructure _(planned)_
+### Frontend
+| Component | Technology | Purpose |
+|---|---|---|
+| Framework | React 19 + TypeScript | High-performance user interface |
+| Build Tool | Vite 8 | Fast ESM bundler & dev server |
+| Styling | Tailwind CSS 4 | Glassmorphic tactical pitch UI |
+| State Management | Zustand 5 | Client prediction state & modal control |
+| Web3 Integration | `@stellar/stellar-sdk` & Freighter API | Stellar wallet connection and transaction signing |
 
-| Technology | Purpose |
-|---|---|
-| Supabase | Database (PostgreSQL), Auth (Google OAuth), Edge Functions |
-| API-Football | Fixtures, squad data, lineups, match events |
-| Supabase Cron | Daily fixture sync scheduling |
+### Backend & Infrastructure
+| Component | Technology | Purpose |
+|---|---|---|
+| Server Framework | NestJS 11 + TypeScript | Modular API and oracle settlement service |
+| ORM | Prisma ORM 7 | Database modeling and migrations |
+| Database | PostgreSQL (Supabase) | Fixtures, squad cache, and user profile storage |
+| Data Provider | API-Football | Real-time match schedules, squads, and confirmed lineups |
 
 ---
 
@@ -72,26 +109,29 @@ BetForm lets football fans put their tactical knowledge to the test. Before each
 
 ```
 bet-form/
-├── frontend/                  # React + Vite frontend
-│   ├── public/
-│   │   ├── WC_ball.webp       # Match ball image
-│   │   ├── WC_banner.webp     # Tournament / match banner
-│   │   ├── WC_image.webp      # Trophy / logo image
-│   │   ├── favicon.svg
-│   │   └── icons.svg
+├── .github/
+│   ├── workflows/ci.yml       # 3-tier matrix CI (frontend, backend, contracts)
+│   ├── ISSUE_TEMPLATE/        # GitHub issue templates
+│   └── PULL_REQUEST_TEMPLATE.md
+├── frontend/                  # React 19 + Vite + Tailwind + Stellar SDK
 │   ├── src/
-│   │   ├── components/
-│   │   │   └── SignupModal.tsx # Google sign-in modal
-│   │   ├── pages/
-│   │   │   └── PromotionalLanding.tsx  # Marketing landing page
-│   │   ├── store/
-│   │   │   └── useModalStore.ts  # Zustand store for modal state
-│   │   ├── App.tsx
-│   │   ├── main.tsx
-│   │   └── index.css          # Global styles + Tailwind theme tokens
-│   ├── package.json
-│   └── vite.config.ts
-└── betform_requirements.md    # Full product requirements document
+│   │   ├── components/        # Pitch visual, modal dialogs, player pickers
+│   │   ├── pages/             # Tactical pitch & landing views
+│   │   └── store/             # Zustand prediction state
+├── backend/                   # NestJS 11 API & Oracle Service
+│   ├── src/                   # Fixture sync, settlement, scoring modules
+│   └── prisma/                # Prisma schema & database migrations
+├── contracts/
+│   └── betform_contest/       # Soroban Rust Smart Contract
+│       ├── src/
+│       │   ├── lib.rs         # Contest escrow & payout logic
+│       │   └── test.rs        # Automated Soroban unit test suite
+│       ├── Cargo.toml         # Rust dependencies
+│       └── deploy.sh          # Testnet deployment automation script
+├── CONTRIBUTING.md            # Contribution guidelines & bounty workflows
+├── DEVELOPMENT.md             # Local setup & CI verification commands
+├── CODE_OF_CONDUCT.md         # Contributor Covenant Code of Conduct
+└── LICENSE                    # MIT Open-Source License
 ```
 
 ---
@@ -99,134 +139,65 @@ bet-form/
 ## Getting Started
 
 ### Prerequisites
+- **Node.js**: `≥ 20.x` & **pnpm**: `≥ 9.x`
+- **Rust**: `stable` with `wasm32v1-none` target (`rustup target add wasm32v1-none`)
+- **Stellar CLI**: `cargo install --locked stellar-cli`
 
-- Node.js ≥ 18
-- npm ≥ 9
-
-### Installation
-
+### 1. Smart Contracts Setup
 ```bash
-# Clone the repository
-git clone https://github.com/Kaycee276/bet-form.git
-cd bet-form/frontend
+cd contracts/betform_contest
 
-# Install dependencies
-npm install
+# Run contract tests
+cargo test
+
+# Build WASM bytecode
+cargo build --target wasm32v1-none --release
 ```
 
-### Development
-
+### 2. Frontend Setup
 ```bash
-npm run dev
+cd frontend
+pnpm install
+pnpm run dev
+# Running at http://localhost:5173
 ```
 
-The app will be available at `http://localhost:5173`.
-
-### Build
-
+### 3. Backend Setup
 ```bash
-npm run build
-```
-
-### Preview Production Build
-
-```bash
-npm run preview
-```
-
-### Lint
-
-```bash
-npm run lint
+cd backend
+pnpm install
+npx prisma generate
+pnpm run dev
+# Running at http://localhost:3000
 ```
 
 ---
 
 ## Scoring System
 
-Scores are calculated after each match is settled using confirmed lineup data from API-Football.
-
-### Formation Score
+Scores are calculated after each fixture is settled using confirmed lineup data:
 
 ```
-formation_final_score = formation_odd × 2   (if correct)
-                      = 0                   (if incorrect)
+Total Score = Formation Score + Σ (Player Proximity Score × Slot Odds)
 ```
 
-Formation odds range from **1.4** (common 4-3-3) to **4.0** (rare 3-3-3-1).
-
-### Player Score (per slot)
-
-```
-player_final_score = proximity_score × slot_odd
-```
-
-**Proximity Score Table (examples):**
-
-| Predicted Slot | Actual Position | Proximity Score |
-|---|---|---|
-| RW | RW | 10 (exact) |
-| RW | RM | 8 (adjacent) |
-| CM | CDM | 5 (nearby) |
-| ST | GK | 0 (non-starter tier) |
-| (not in XI) | — | 0 |
-
-**Slot odds** range from **1.2** (GK) to **2.8** (ST), rewarding harder-to-predict positions.
-
-### Total Score
-
-```
-total_score = formation_final_score + Σ (proximity_score × slot_odd) for all 11 players
-```
-
-All scores are displayed rounded to 1 decimal place.
+- **Formation Odds**: Range from `1.4` (popular 4-3-3) up to `4.0` (3-3-3-1). Multiplied by 2 on exact match.
+- **Proximity Score**: Exact position starter (10 pts), adjacent position (8 pts), nearby tier (5 pts), non-starter (0 pts).
+- **Slot Odds**: Range from `1.2` (GK) to `2.8` (ST) to reward high-variance tactical positions.
 
 ---
 
-## Fixture Status Lifecycle
+## Contributing
 
-```
-SQUAD_PENDING  →  OPEN  →  LOCKED  →  PENDING_SETTLEMENT  →  SETTLED
-```
+We welcome contributions from the open-source and Stellar communities! 
 
-| Status | Condition |
-|---|---|
-| `OPEN` | Kickoff >24 hours away AND squad data confirmed |
-| `SQUAD_PENDING` | Squad data not yet available from API-Football |
-| `LOCKED` | Midnight WAT (UTC+1) on match day morning |
-| `PENDING_SETTLEMENT` | Match ended, lineup API returned empty; retries every 10 min |
-| `SETTLED` | Confirmed lineups received and all predictions scored |
+- Read our **[CONTRIBUTING.md](CONTRIBUTING.md)** for branch rules and PR workflows.
+- Review **[DEVELOPMENT.md](DEVELOPMENT.md)** for local testing commands.
+- All Pull Requests must target the **`dev`** branch and pass all CI checks.
+- Browse open, funded issues on our [Issue Tracker](https://github.com/Kaycee276/bet-form/issues).
 
 ---
 
-## Business Rules
+## License
 
-- **One prediction per user per team per fixture.** No edits after submission.
-- **Submission closes at lockdown** — the fixture status changes to `LOCKED` and the UI disables the submit flow.
-- **Players are de-duplicated** across XI slots — selecting a player in one slot removes them from all other dropdowns.
-- **Position filtering** — GK slots only show goalkeepers; DEF slots only show defenders, etc.
-- **Early substitutions** — if a player is substituted off before minute 6, the replacement counts as the confirmed starter.
-- **Admin override** — the admin account (`kizuaba@gmail.com`) can manually input a confirmed formation and XI from the Settings page to force settlement when the lineup API is delayed.
-- **All data lives in Supabase** — no localStorage is used at any point.
-- **All API-Football calls** are made server-side via Supabase edge functions; the API key is never exposed to the client.
-
----
-
-## Out of Scope
-
-The following are explicitly **not** included in this release:
-
-- Real money betting or financial transactions
-- Non-football sports leagues
-- Social features (comments, sharing, following)
-- Push or email notifications
-- Mobile native app (iOS / Android)
-- Dark/light theme toggle (fixed dark theme)
-- Prediction editing after submission
-- Live match scores or updates
-- Password-based auth (Google OAuth only)
-- Custom avatar uploads (uses Google profile photo)
-
----
-
-> © 2026 BetForm. Not affiliated with FIFA, UEFA, or any official football governing body.
+This project is licensed under the [MIT License](LICENSE).
