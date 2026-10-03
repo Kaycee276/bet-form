@@ -4,14 +4,14 @@
 
 # Contributing to BetForm ⚽
 
-First off, thank you for considering contributing to BetForm! It's open-source projects like this that make the developer community an amazing place to learn, inspire, and create.
+First off, thank you for considering contributing to BetForm! It's open-source projects like this that make the developer and Web3 communities amazing places to learn, inspire, and create.
 
 ---
 
 ## 🌿 Branching & Pull Request Workflow
 
 ### Default Branch: `dev`
-All active development and feature PRs must target the **`dev`** branch. The `main` branch is reserved strictly for stable, production-tested releases.
+All active development, feature branches, and fix PRs must target the **`dev`** branch. The `main` branch is reserved strictly for stable, production-tested releases.
 
 ### How to Contribute
 
@@ -36,16 +36,20 @@ All active development and feature PRs must target the **`dev`** branch. The `ma
 6. **Verify build and lints locally**:
    ```bash
    # In frontend/
-   npm run lint && npm run build
+   cd frontend && pnpm run lint && pnpm test && pnpm run build
 
    # In backend/
-   npm run lint && npm run build
+   cd backend && npx prisma generate && pnpm run lint && pnpm test && pnpm run build
+
+   # In contracts/betform_contest/
+   cd contracts/betform_contest && cargo fmt --check && cargo clippy -- -D warnings && cargo test
    ```
 7. **Commit using Conventional Commits**:
-   - `feat: add glassmorphic player card component`
-   - `fix: correct status calculation for locked fixtures`
-   - `docs: update setup instructions`
-   - `refactor: extract pitch layout utility`
+   - `feat(frontend): add glassmorphic player card component`
+   - `feat(contracts): implement emergency pause circuit breaker`
+   - `fix(backend): correct score verification oracle calculation`
+   - `docs: update setup and deployment instructions`
+   - `test(contracts): add end-to-end Soroban settlement tests`
 8. **Push to your fork** and open a **Pull Request targeting `dev`**.
 
 ---
@@ -53,22 +57,29 @@ All active development and feature PRs must target the **`dev`** branch. The `ma
 ## 🛡️ Branch Protection & PR Rules
 
 - ❌ Direct pushes to `main` and `dev` are protected.
-- ✅ All changes must pass GitHub Actions CI (`frontend-ci` & `backend-ci`).
-- ✅ At least one maintainer approval is required before merging.
-- ✅ Code must conform to ESLint and TypeScript compilation rules without errors.
+- ✅ All changes must pass GitHub Actions CI matrix:
+  - `frontend-ci` (Typecheck, Vitest, Lint, Build)
+  - `backend-ci` (Prisma Generate, Jest, Lint, Build)
+  - `contracts-ci` (Rustfmt, Clippy, Cargo Test, WASM compilation `wasm32v1-none`)
+- ✅ At least one maintainer review approval is required before merging.
+- ✅ PR titles and commits must adhere to Conventional Commits standard.
 
 ---
 
-## 🏷️ Branch Naming Conventions
+## 🏷️ Branch & Issue Naming Conventions
 
-- `feature/` — New UI components or features
+- `feature/` — New features (UI components, API endpoints, contract methods)
 - `fix/` — Bug fixes
+- `contracts/` — Soroban smart contract updates or security improvements
 - `docs/` — Documentation updates
 - `refactor/` — Code cleanups and refactoring
 - `chore/` — Build system, CI, or dependency updates
 
 ---
 
-## 💬 Community & Support
+## 💬 Community & Open-Source Bounties
 
-If you have questions or want to discuss a major architectural change before submitting code, please open a GitHub Issue or Discussion thread first!
+BetForm participates in open-source contributor reward platforms on Stellar (rewarding contributors in USDC/XLM).
+
+- Check our open [GitHub Issues](https://github.com/Kaycee276/bet-form/issues) tagged with `good first issue` or `help wanted`.
+- Leave a comment on any open, unassigned issue to express interest or ask clarification questions before starting work.
