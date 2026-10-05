@@ -4,7 +4,8 @@ import { MatchCard } from "../components/dashboard/MatchCard";
 import { DashboardLoader } from "../components/dashboard/DashboardLoader";
 import { BottomNav } from "../components/dashboard/BottomNav";
 import { StatCards } from "../components/dashboard/StatCards";
-import { motion } from "framer-motion";
+import { motion, type Variants } from "framer-motion";
+import { Hash, Sparkles } from "lucide-react";
 
 const API_URL = import.meta.env.VITE_BACKEND_URL;
 
@@ -26,21 +27,22 @@ interface Fixture {
   status: string;
 }
 
-const container = {
+const container: Variants = {
   hidden: { opacity: 0 },
   visible: {
     opacity: 1,
-    transition: { staggerChildren: 0.1 },
+    transition: { staggerChildren: 0.08 },
   },
 };
 
-const item = {
-  hidden: { opacity: 0, y: 20 },
+const item: Variants = {
+  hidden: { opacity: 0, y: 16 },
   visible: { opacity: 1, y: 0, transition: { duration: 0.4 } },
 };
 
 export const Dashboard = () => {
   const [fixtures, setFixtures] = useState<Fixture[]>([]);
+  const [filter, setFilter] = useState<"ALL" | "OPEN" | "SETTLED">("ALL");
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
@@ -67,24 +69,53 @@ export const Dashboard = () => {
       .finally(() => setIsLoading(false));
   }, []);
 
-  return (
-    <div className="min-h-screen bg-slate-900 flex flex-col relative pb-32 overflow-hidden text-slate-100">
-      {/* Brighter background ambient glows */}
-      <div className="absolute top-0 right-1/4 w-[600px] h-[600px] bg-emerald-400/20 rounded-full blur-[160px] pointer-events-none"></div>
-      <div className="absolute top-1/2 left-0 w-[500px] h-[500px] bg-cyan-400/20 rounded-full blur-[140px] pointer-events-none"></div>
+  const filteredFixtures = fixtures.filter((f) => {
+    if (filter === "OPEN") return f.status === "OPEN";
+    if (filter === "SETTLED") return f.status === "SETTLED";
+    return true;
+  });
 
-      <header className="pt-12 pb-6 px-6 relative z-10 max-w-7xl mx-auto w-full flex items-center justify-between">
+  return (
+    <div className="min-h-screen bg-[#0a0d3a] flex flex-col relative pb-32 overflow-hidden text-white">
+      {/* Discord ambient lighting */}
+      <div className="absolute top-0 right-1/4 w-[600px] h-[600px] bg-[#5865f2]/20 rounded-full blur-[160px] pointer-events-none"></div>
+      <div className="absolute top-1/2 left-0 w-[500px] h-[500px] bg-[#35ed7e]/12 rounded-full blur-[150px] pointer-events-none"></div>
+
+      <header className="pt-10 pb-6 px-6 relative z-10 max-w-7xl mx-auto w-full flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
           <div className="flex items-center gap-2 mb-2">
-            <img src="/logo.png" alt="BetForm Logo" className="w-6 h-6 rounded-none border border-emerald-400/40 shadow-[0_0_8px_rgba(52,211,153,0.5)] object-cover" />
-            <span className="text-xs font-heading font-black tracking-wider uppercase text-emerald-400">BetForm Dashboard</span>
+            <img 
+              src="/logo.png" 
+              alt="BetForm Logo" 
+              className="w-6 h-6 rounded-lg border border-white/20 shadow-[0_0_10px_rgba(88,101,242,0.4)] object-cover" 
+            />
+            <span className="text-xs font-heading font-black tracking-wider uppercase text-[#35ed7e]">
+              Tactical Headquarters
+            </span>
           </div>
-          <h2 className="text-3xl md:text-5xl font-heading font-black tracking-tight text-white mb-1">
-            Upcoming Fixtures
+          <h2 className="text-3xl md:text-5xl font-heading font-black tracking-tight text-white">
+            Matchday Fixtures
           </h2>
-          <p className="text-slate-300 font-medium text-xs md:text-sm">
-            Lock in your tactical predictions before kickoff lockdown.
+          <p className="text-[#949ba4] font-medium text-xs md:text-sm mt-1">
+            Pick formations and draft starting XIs before kickoff lockdown.
           </p>
+        </div>
+
+        {/* Filter Pills */}
+        <div className="flex items-center gap-2 p-1.5 rounded-full bg-[#181b3d] border border-white/10 self-start md:self-auto">
+          {(["ALL", "OPEN", "SETTLED"] as const).map((tab) => (
+            <button
+              key={tab}
+              onClick={() => setFilter(tab)}
+              className={`px-4 py-1.5 rounded-full text-xs font-black transition-all cursor-pointer ${
+                filter === tab
+                  ? "bg-[#5865f2] text-white shadow-[0_0_15px_rgba(88,101,242,0.5)]"
+                  : "text-[#949ba4] hover:text-white"
+              }`}
+            >
+              {tab === "ALL" ? "All Matches" : tab === "OPEN" ? "Open Now" : "Settled"}
+            </button>
+          ))}
         </div>
       </header>
 
@@ -97,7 +128,7 @@ export const Dashboard = () => {
           ) : (
             <div className="flex flex-col gap-10">
               {Object.entries(
-                fixtures.reduce(
+                filteredFixtures.reduce(
                   (acc, match) => {
                     if (!acc[match.league]) acc[match.league] = [];
                     acc[match.league].push(match);
@@ -107,14 +138,18 @@ export const Dashboard = () => {
                 ),
               ).map(([league, matches]) => (
                 <div key={league}>
-                  <div className="sticky top-0 z-20 glass-nav backdrop-blur-2xl py-3 px-4 rounded-none mb-6 border border-white/20 flex items-center justify-between">
-                    <h3 className="text-lg font-heading font-extrabold text-white uppercase tracking-wider flex items-center gap-2">
-                      <span className="w-2.5 h-2.5 bg-emerald-400 shadow-[0_0_12px_rgba(52,211,153,0.8)]" />
-                      {league}
+                  {/* Discord Channel / Category Header */}
+                  <div className="sticky top-4 z-20 discord-nav backdrop-blur-2xl py-3 px-6 rounded-2xl mb-5 flex items-center justify-between shadow-xl">
+                    <h3 className="text-base font-heading font-black text-white uppercase tracking-wider flex items-center gap-2">
+                      <Hash size={18} className="text-[#5865f2]" />
+                      <span>{league}</span>
                     </h3>
-                    <span className="text-xs font-black text-emerald-300 glass-pill px-3 py-1 rounded-none border border-emerald-400/30">
-                      {matches.length} Matches
-                    </span>
+                    <div className="flex items-center gap-2">
+                      <Sparkles size={14} className="text-[#35ed7e]" />
+                      <span className="text-xs font-black text-[#35ed7e] bg-[#35ed7e]/15 px-3 py-0.5 rounded-full border border-[#35ed7e]/30">
+                        {matches.length} Matches
+                      </span>
+                    </div>
                   </div>
 
                   <motion.div
