@@ -1,182 +1,258 @@
 @import "tailwindcss";
 
 @theme {
-  --font-sans: "JetBrains Mono", monospace, system-ui, -apple-system, sans-serif;
-  --font-heading: "Chakra Petch", sans-serif;
+  --font-sans: "Plus Jakarta Sans", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-mono: "JetBrains Mono", monospace;
+  --font-heading: "Plus Jakarta Sans", "Chakra Petch", sans-serif;
 
-  --color-bg-base: #0f172a;
-  --color-bg-card: rgba(30, 41, 59, 0.65);
-  --color-bg-card-hover: rgba(51, 65, 85, 0.75);
+  /* Discord Design System Palette (from DESIGN.md) */
+  --color-canvas: #0a0d3a;
+  --color-canvas-elevated: #0f1345;
+  --color-surface-indigo: #1e2353;
+  --color-surface-onyx: #23272a;
+  --color-surface-black: #000000;
+  
+  --color-blurple: #5865f2;
+  --color-blurple-hover: #4752c4;
+  --color-blurple-active: #3c45a5;
+  --color-blurple-glow: rgba(88, 101, 242, 0.45);
 
-  --color-primary: #10b981;
-  --color-primary-hover: #34d399;
-  --color-primary-glow: rgba(52, 211, 153, 0.5);
+  --color-electric-green: #35ed7e;
+  --color-electric-green-hover: #2dd870;
+  --color-electric-green-glow: rgba(53, 237, 126, 0.4);
 
-  --color-accent: #1e293b;
+  --color-magenta: #ec48bd;
+  --color-magenta-hover: #d938ab;
+  --color-magenta-glow: rgba(236, 72, 189, 0.4);
+
+  --color-link: #00b0f4;
+  --color-hairline: rgba(255, 255, 255, 0.08);
+  --color-hairline-bright: rgba(255, 255, 255, 0.16);
+
+  --color-ink: #ffffff;
+  --color-ink-muted: #949ba4;
+  --color-ink-subtle: #6d737d;
+
+  /* Theme token aliases */
+  --color-bg-base: #0a0d3a;
+  --color-bg-card: rgba(30, 35, 83, 0.72);
+  --color-bg-card-hover: rgba(43, 50, 112, 0.85);
+
+  --color-primary: #5865f2;
+  --color-primary-hover: #4752c4;
+  --color-primary-glow: rgba(88, 101, 242, 0.45);
+
+  --color-accent: #35ed7e;
 }
 
 :root {
-  background-color: #0f172a;
-  color: #f8fafc;
+  background-color: #0a0d3a;
+  color: #ffffff;
+  color-scheme: dark;
 }
 
 body {
   margin: 0;
   min-height: 100vh;
+  min-height: 100dvh;
   font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: #0f172a;
+  background-color: #0a0d3a;
+  /* Discord energetic ambient glows (Blurple, Magenta, Electric Green) */
   background-image: 
-    radial-gradient(at 10% 10%, rgba(16, 185, 129, 0.22) 0px, transparent 55%),
-    radial-gradient(at 90% 15%, rgba(6, 182, 212, 0.2) 0px, transparent 55%),
-    radial-gradient(at 50% 85%, rgba(99, 102, 241, 0.18) 0px, transparent 60%);
+    radial-gradient(at 15% 10%, rgba(88, 101, 242, 0.25) 0px, transparent 55%),
+    radial-gradient(at 85% 15%, rgba(236, 72, 189, 0.18) 0px, transparent 50%),
+    radial-gradient(at 50% 85%, rgba(53, 237, 126, 0.15) 0px, transparent 55%),
+    radial-gradient(at 90% 80%, rgba(0, 176, 244, 0.15) 0px, transparent 50%);
   background-attachment: fixed;
 }
 
 h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-heading);
+  letter-spacing: -0.02em;
 }
 
 button {
   cursor: pointer;
+  font-family: var(--font-sans);
 }
 
 /* ─────────────────────────────────────────────
- * Brighter Glassmorphism Design System Utilities
+ * Discord Design System Utilities (DESIGN.md)
  * ───────────────────────────────────────────── */
 
-/* Glass Card */
-.glass-card {
-  background: rgba(30, 41, 59, 0.65);
+/* Discord Cards */
+.discord-card, .glass-card {
+  background: rgba(30, 35, 83, 0.75);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
-  border: 1px solid rgba(255, 255, 255, 0.16);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 1.25rem; /* 20px generous Discord rounded */
   box-shadow: 
-    0 10px 30px 0 rgba(0, 0, 0, 0.25),
-    inset 0 1px 1px 0 rgba(255, 255, 255, 0.25);
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    0 12px 32px 0 rgba(0, 0, 0, 0.35),
+    inset 0 1px 0 0 rgba(255, 255, 255, 0.15);
+  transition: all 0.25s cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 
-.glass-card:hover {
-  background: rgba(51, 65, 85, 0.75);
-  border-color: rgba(52, 211, 153, 0.5);
+.discord-card:hover, .glass-card:hover {
+  background: rgba(39, 45, 105, 0.88);
+  border-color: rgba(88, 101, 242, 0.5);
   box-shadow: 
-    0 14px 40px 0 rgba(0, 0, 0, 0.35),
-    0 0 30px rgba(52, 211, 153, 0.3),
-    inset 0 1px 1px 0 rgba(255, 255, 255, 0.35);
+    0 16px 44px 0 rgba(0, 0, 0, 0.45),
+    0 0 28px rgba(88, 101, 242, 0.25),
+    inset 0 1px 0 0 rgba(255, 255, 255, 0.25);
+  transform: translateY(-3px);
+}
+
+/* Structural Section Container (Panels) */
+.discord-panel, .glass-panel {
+  background: rgba(15, 19, 69, 0.82);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 1.5rem; /* 24px */
+  box-shadow: 
+    0 24px 60px rgba(0, 0, 0, 0.4),
+    inset 0 1px 0 0 rgba(255, 255, 255, 0.18);
+}
+
+.discord-panel-glow, .glass-panel-glow {
+  border-color: rgba(88, 101, 242, 0.45);
+  box-shadow: 
+    0 0 40px rgba(88, 101, 242, 0.25),
+    inset 0 1px 0 0 rgba(255, 255, 255, 0.25);
+}
+
+/* Discord Navigation Bar */
+.discord-nav, .glass-nav {
+  background: rgba(10, 13, 58, 0.85);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 9999px;
+  box-shadow: 
+    0 12px 40px rgba(0, 0, 0, 0.45),
+    inset 0 1px 0 0 rgba(255, 255, 255, 0.15);
+}
+
+/* Discord Buttons */
+.discord-button-blurple, .glass-button-primary {
+  background: #5865f2;
+  color: #ffffff;
+  font-weight: 700;
+  border: none;
+  border-radius: 9999px;
+  box-shadow: 
+    0 8px 24px rgba(88, 101, 242, 0.38),
+    inset 0 1px 0 rgba(255, 255, 255, 0.35);
+  transition: all 0.2s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.discord-button-blurple:hover, .glass-button-primary:hover {
+  background: #4752c4;
+  box-shadow: 
+    0 12px 32px rgba(88, 101, 242, 0.55),
+    inset 0 1px 0 rgba(255, 255, 255, 0.45);
   transform: translateY(-2px);
 }
 
-/* Glass Panel (Structural Section Containers) */
-.glass-panel {
-  background: rgba(15, 23, 42, 0.75);
-  backdrop-filter: blur(24px);
-  -webkit-backdrop-filter: blur(24px);
-  border: 1px solid rgba(255, 255, 255, 0.18);
-  box-shadow: 
-    0 20px 50px rgba(0, 0, 0, 0.35),
-    inset 0 1px 0 0 rgba(255, 255, 255, 0.25);
+.discord-button-blurple:active, .glass-button-primary:active {
+  background: #3c45a5;
+  transform: translateY(0);
 }
 
-.glass-panel-glow {
-  border-color: rgba(52, 211, 153, 0.4);
+.discord-button-green {
+  background: #35ed7e;
+  color: #000000;
+  font-weight: 800;
+  border: none;
+  border-radius: 9999px;
   box-shadow: 
-    0 0 35px rgba(52, 211, 153, 0.25),
-    inset 0 1px 0 0 rgba(255, 255, 255, 0.3);
-}
-
-/* Glass Navigation Bar */
-.glass-nav {
-  background: rgba(15, 23, 42, 0.85);
-  backdrop-filter: blur(24px);
-  -webkit-backdrop-filter: blur(24px);
-  border: 1px solid rgba(255, 255, 255, 0.18);
-  box-shadow: 
-    0 10px 40px rgba(0, 0, 0, 0.3),
-    inset 0 1px 0 0 rgba(255, 255, 255, 0.25);
-}
-
-/* Glass Buttons */
-.glass-button-primary {
-  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-  border: 1px solid rgba(255, 255, 255, 0.35);
-  color: #022c22;
-  box-shadow: 
-    0 4px 20px rgba(16, 185, 129, 0.45),
+    0 8px 24px rgba(53, 237, 126, 0.35),
     inset 0 1px 0 rgba(255, 255, 255, 0.4);
-  transition: all 0.25s ease;
+  transition: all 0.2s ease;
 }
 
-.glass-button-primary:hover {
-  background: linear-gradient(135deg, #34d399 0%, #10b981 100%);
-  box-shadow: 
-    0 6px 30px rgba(52, 211, 153, 0.65),
-    inset 0 1px 0 rgba(255, 255, 255, 0.5);
+.discord-button-green:hover {
+  background: #2dd870;
+  box-shadow: 0 12px 30px rgba(53, 237, 126, 0.5);
+  transform: translateY(-2px);
+}
+
+.discord-button-secondary, .glass-button-secondary {
+  background: #23272a;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: #ffffff;
+  font-weight: 600;
+  border-radius: 9999px;
+  transition: all 0.2s ease;
+}
+
+.discord-button-secondary:hover, .glass-button-secondary:hover {
+  background: #2c3136;
+  border-color: rgba(255, 255, 255, 0.25);
+  color: #ffffff;
   transform: translateY(-1px);
 }
 
-.glass-button-secondary {
-  background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  color: #ffffff;
-  transition: all 0.25s ease;
-}
-
-.glass-button-secondary:hover {
-  background: rgba(255, 255, 255, 0.18);
-  border-color: rgba(52, 211, 153, 0.5);
-  color: #ffffff;
-  box-shadow: 0 0 25px rgba(52, 211, 153, 0.3);
-}
-
-/* Glass Inputs & Controls */
-.glass-input {
-  background: rgba(30, 41, 59, 0.75);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(255, 255, 255, 0.2);
+/* Discord Inputs & Dropdowns */
+.discord-input, .glass-input {
+  background: #181b3d;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 0.875rem; /* 14px */
   color: #ffffff;
   transition: all 0.2s ease;
 }
 
-.glass-input:focus {
+.discord-input:focus, .glass-input:focus {
   outline: none;
-  border-color: rgba(52, 211, 153, 0.7);
-  box-shadow: 0 0 25px rgba(52, 211, 153, 0.4);
-  background: rgba(30, 41, 59, 0.9);
+  border-color: #5865f2;
+  box-shadow: 0 0 0 3px rgba(88, 101, 242, 0.3);
+  background: #1e224e;
 }
 
-/* Glass Pill Badge */
-.glass-pill {
-  background: rgba(16, 185, 129, 0.18);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-  border: 1px solid rgba(52, 211, 153, 0.4);
-  color: #34d399;
+/* Discord Badges & Pills */
+.discord-pill, .glass-pill {
+  background: rgba(88, 101, 242, 0.16);
+  border: 1px solid rgba(88, 101, 242, 0.4);
+  color: #ffffff;
+  border-radius: 9999px;
+  font-weight: 700;
 }
 
-/* Modal Glass Backdrop */
-.glass-modal-backdrop {
-  background: rgba(15, 23, 42, 0.75);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
+.discord-pill-green {
+  background: rgba(53, 237, 126, 0.16);
+  border: 1px solid rgba(53, 237, 126, 0.4);
+  color: #35ed7e;
+  border-radius: 9999px;
 }
 
-/* Pitch Glass Surface */
-.glass-pitch {
-  background: linear-gradient(180deg, rgba(16, 85, 55, 0.9) 0%, rgba(6, 55, 35, 0.95) 100%);
+.discord-pill-magenta {
+  background: rgba(236, 72, 189, 0.16);
+  border: 1px solid rgba(236, 72, 189, 0.4);
+  color: #ec48bd;
+  border-radius: 9999px;
+}
+
+/* Modal Backdrop */
+.discord-modal-backdrop, .glass-modal-backdrop {
+  background: rgba(10, 13, 58, 0.8);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(52, 211, 153, 0.4);
+}
+
+/* Pitch Surface with Arcade Vibe */
+.discord-pitch, .glass-pitch {
+  background: radial-gradient(circle at 50% 50%, rgba(20, 35, 95, 0.95) 0%, rgba(10, 18, 55, 0.98) 100%);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(88, 101, 242, 0.35);
+  border-radius: 1.5rem;
   box-shadow: 
-    0 25px 50px -12px rgba(0, 0, 0, 0.4),
-    0 0 45px rgba(52, 211, 153, 0.25),
-    inset 0 1px 1px 0 rgba(255, 255, 255, 0.3);
+    0 25px 60px -12px rgba(0, 0, 0, 0.5),
+    0 0 40px rgba(88, 101, 242, 0.2),
+    inset 0 1px 1px 0 rgba(255, 255, 255, 0.15);
 }
 
 /* Scrollbar Utility */
