@@ -11,7 +11,7 @@
   <a href="https://opensource.org/licenses/MIT"><img src="https://img.shields.io/badge/License-MIT-blue.svg" alt="License: MIT" /></a>
   <a href="https://stellar.org"><img src="https://img.shields.io/badge/Network-Stellar-black.svg?logo=stellar" alt="Stellar Network" /></a>
   <a href="https://soroban.stellar.org"><img src="https://img.shields.io/badge/Smart%20Contracts-Soroban%20Rust-purple.svg" alt="Soroban Smart Contracts" /></a>
-  <a href="https://flossafrica.com/m/kaycee276?p=Chesster"><img src="https://flossafrica.com/badge.svg?theme=dark" alt="Fund my work on FLOSSAfrica" /></a>
+  <a href="https://flossafrica.com/m/kaycee276?p=bet-form"><img src="https://flossafrica.com/badge.svg?theme=dark" alt="Fund my work on FLOSSAfrica" /></a>
 </p>
 
 ---
@@ -204,7 +204,7 @@ We welcome contributions from the open-source and Stellar communities!
 
 If you find this project valuable, consider supporting the work:
 
-[![Fund my work on FLOSSAfrica](https://flossafrica.com/badge.svg?theme=dark)](https://flossafrica.com/m/kaycee276?p=Chesster)
+[![Fund my work on FLOSSAfrica](https://flossafrica.com/badge.svg?theme=dark)](https://flossafrica.com/m/kaycee276?p=bet-form)
 
 ---
 
