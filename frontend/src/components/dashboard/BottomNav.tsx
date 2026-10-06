@@ -14,7 +14,7 @@ export const BottomNav = () => {
 
   return (
     <div className="fixed bottom-6 left-1/2 -translate-x-1/2 w-full max-w-sm px-4 z-50">
-      <nav className="discord-nav p-1.5 flex items-center justify-between relative shadow-[0_16px_45px_rgba(0,0,0,0.6)] border border-white/15 bg-[#101344]/90 backdrop-blur-2xl">
+      <nav className="p-1.5 rounded-full flex items-center justify-between relative shadow-[0_20px_50px_-10px_rgba(0,0,0,0.85)] border border-white/[0.09] bg-[#0c0e15]/90 backdrop-blur-2xl">
         {navItems.map((item) => {
           const isActive = location.pathname === item.path;
           return (
@@ -22,20 +22,28 @@ export const BottomNav = () => {
               key={item.label}
               to={item.path}
               className={clsx(
-                "relative flex flex-col items-center justify-center w-full h-13 rounded-full transition-colors z-10",
-                isActive ? "text-white font-extrabold" : "text-[#949ba4] hover:text-white"
+                "relative flex flex-col items-center justify-center w-full h-12 rounded-full transition-colors z-10",
+                isActive ? "text-[#08090d] font-bold" : "text-slate-400 hover:text-white"
               )}
             >
               {isActive && (
                 <motion.div
                   layoutId="activeTab"
-                  className="absolute inset-0 bg-[#5865f2] rounded-full shadow-[0_0_25px_rgba(88,101,242,0.6)]"
+                  className="absolute inset-0 bg-white rounded-full shadow-[0_2px_12px_rgba(255,255,255,0.15)]"
                   transition={{ type: "spring", stiffness: 450, damping: 32 }}
                 />
               )}
               <div className="relative z-20 flex flex-col items-center gap-0.5">
-                <item.icon size={19} className={isActive ? "text-white stroke-[2.5]" : "stroke-[1.9]"} />
-                <span className="text-[10px] font-heading font-black tracking-wider uppercase">{item.label}</span>
+                <item.icon 
+                  size={17} 
+                  className={isActive ? "text-[#08090d] stroke-[2.2]" : "text-slate-400 stroke-[1.8] group-hover:text-white"} 
+                />
+                <span className={clsx(
+                  "text-[9px] font-mono tracking-wider uppercase",
+                  isActive ? "text-[#08090d] font-bold" : "text-slate-400"
+                )}>
+                  {item.label}
+                </span>
               </div>
             </Link>
           );
