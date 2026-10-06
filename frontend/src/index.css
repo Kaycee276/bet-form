@@ -3,51 +3,57 @@
 @theme {
   --font-sans: "Plus Jakarta Sans", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   --font-mono: "JetBrains Mono", monospace;
-  --font-heading: "Plus Jakarta Sans", "Chakra Petch", sans-serif;
+  --font-heading: "Plus Jakarta Sans", -apple-system, sans-serif;
 
-  /* Discord Design System Palette (from DESIGN.md) */
-  --color-canvas: #0a0d3a;
-  --color-canvas-elevated: #0f1345;
-  --color-surface-indigo: #1e2353;
-  --color-surface-onyx: #23272a;
-  --color-surface-black: #000000;
+  /* Obsidian & Tactical Emerald Luxury Palette */
+  --color-canvas: #08090d;
+  --color-canvas-elevated: #0e1118;
+  --color-surface-indigo: #131722;
+  --color-surface-onyx: #12141a;
+  --color-surface-black: #040507;
   
-  --color-blurple: #5865f2;
-  --color-blurple-hover: #4752c4;
-  --color-blurple-active: #3c45a5;
-  --color-blurple-glow: rgba(88, 101, 242, 0.45);
+  /* Primary Tactical Pitch Emerald */
+  --color-pitch-emerald: #00e599;
+  --color-pitch-emerald-hover: #00cc88;
+  --color-pitch-emerald-glow: rgba(0, 229, 153, 0.25);
 
-  --color-electric-green: #35ed7e;
-  --color-electric-green-hover: #2dd870;
-  --color-electric-green-glow: rgba(53, 237, 126, 0.4);
+  /* Color token backward-compatibility mapped to luxury palette */
+  --color-blurple: #00e599;
+  --color-blurple-hover: #00cc88;
+  --color-blurple-active: #00b377;
+  --color-blurple-glow: rgba(0, 229, 153, 0.25);
 
-  --color-magenta: #ec48bd;
-  --color-magenta-hover: #d938ab;
-  --color-magenta-glow: rgba(236, 72, 189, 0.4);
+  --color-electric-green: #00e599;
+  --color-electric-green-hover: #00cc88;
+  --color-electric-green-glow: rgba(0, 229, 153, 0.25);
 
-  --color-link: #00b0f4;
+  --color-magenta: #f43f5e;
+  --color-magenta-hover: #e11d48;
+  --color-magenta-glow: rgba(244, 63, 94, 0.25);
+
+  --color-link: #38bdf8;
   --color-hairline: rgba(255, 255, 255, 0.08);
   --color-hairline-bright: rgba(255, 255, 255, 0.16);
 
-  --color-ink: #ffffff;
-  --color-ink-muted: #949ba4;
-  --color-ink-subtle: #6d737d;
+  --color-ink: #f8fafc;
+  --color-ink-muted: #94a3b8;
+  --color-ink-subtle: #64748b;
 
   /* Theme token aliases */
-  --color-bg-base: #0a0d3a;
-  --color-bg-card: rgba(30, 35, 83, 0.72);
-  --color-bg-card-hover: rgba(43, 50, 112, 0.85);
+  --color-bg-base: #08090d;
+  --color-bg-card: rgba(18, 22, 32, 0.75);
+  --color-bg-card-hover: rgba(24, 30, 44, 0.88);
 
-  --color-primary: #5865f2;
-  --color-primary-hover: #4752c4;
-  --color-primary-glow: rgba(88, 101, 242, 0.45);
+  --color-primary: #00e599;
+  --color-primary-hover: #00cc88;
+  --color-primary-glow: rgba(0, 229, 153, 0.25);
 
-  --color-accent: #35ed7e;
+  --color-accent: #00e599;
 }
 
 :root {
-  background-color: #0a0d3a;
-  color: #ffffff;
+  background-color: #08090d;
+  color: #f8fafc;
   color-scheme: dark;
 }
 
@@ -58,19 +64,18 @@ body {
   font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: #0a0d3a;
-  /* Discord energetic ambient glows (Blurple, Magenta, Electric Green) */
+  background-color: #08090d;
+  /* Atmospheric tactical stadium ambience (deep obsidian with subtle ethereal pitch highlights) */
   background-image: 
-    radial-gradient(at 15% 10%, rgba(88, 101, 242, 0.25) 0px, transparent 55%),
-    radial-gradient(at 85% 15%, rgba(236, 72, 189, 0.18) 0px, transparent 50%),
-    radial-gradient(at 50% 85%, rgba(53, 237, 126, 0.15) 0px, transparent 55%),
-    radial-gradient(at 90% 80%, rgba(0, 176, 244, 0.15) 0px, transparent 50%);
+    radial-gradient(circle at 50% -10%, rgba(0, 229, 153, 0.07) 0px, transparent 55%),
+    radial-gradient(circle at 85% 20%, rgba(30, 41, 59, 0.35) 0px, transparent 45%),
+    radial-gradient(circle at 15% 75%, rgba(15, 23, 42, 0.5) 0px, transparent 50%);
   background-attachment: fixed;
 }
 
 h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-heading);
-  letter-spacing: -0.02em;
+  letter-spacing: -0.025em;
 }
 
 button {
@@ -79,180 +84,184 @@ button {
 }
 
 /* ─────────────────────────────────────────────
- * Discord Design System Utilities (DESIGN.md)
+ * Double-Bezel Architectural Design System
  * ───────────────────────────────────────────── */
 
-/* Discord Cards */
+/* Obsidian Double-Bezel Cards */
 .discord-card, .glass-card {
-  background: rgba(30, 35, 83, 0.75);
+  background: rgba(16, 20, 29, 0.78);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 1.25rem; /* 20px generous Discord rounded */
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 1.25rem; /* 20px */
   box-shadow: 
-    0 12px 32px 0 rgba(0, 0, 0, 0.35),
-    inset 0 1px 0 0 rgba(255, 255, 255, 0.15);
-  transition: all 0.25s cubic-bezier(0.2, 0.8, 0.2, 1);
+    0 16px 36px -12px rgba(0, 0, 0, 0.65),
+    inset 0 1px 0 0 rgba(255, 255, 255, 0.08);
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .discord-card:hover, .glass-card:hover {
-  background: rgba(39, 45, 105, 0.88);
-  border-color: rgba(88, 101, 242, 0.5);
+  background: rgba(22, 27, 40, 0.88);
+  border-color: rgba(255, 255, 255, 0.16);
   box-shadow: 
-    0 16px 44px 0 rgba(0, 0, 0, 0.45),
-    0 0 28px rgba(88, 101, 242, 0.25),
-    inset 0 1px 0 0 rgba(255, 255, 255, 0.25);
-  transform: translateY(-3px);
+    0 20px 48px -12px rgba(0, 0, 0, 0.75),
+    0 0 24px rgba(0, 229, 153, 0.08),
+    inset 0 1px 0 0 rgba(255, 255, 255, 0.15);
+  transform: translateY(-2px);
 }
 
 /* Structural Section Container (Panels) */
 .discord-panel, .glass-panel {
-  background: rgba(15, 19, 69, 0.82);
+  background: rgba(13, 16, 24, 0.85);
   backdrop-filter: blur(24px);
   -webkit-backdrop-filter: blur(24px);
-  border: 1px solid rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: 1.5rem; /* 24px */
   box-shadow: 
-    0 24px 60px rgba(0, 0, 0, 0.4),
-    inset 0 1px 0 0 rgba(255, 255, 255, 0.18);
+    0 24px 60px -16px rgba(0, 0, 0, 0.7),
+    inset 0 1px 0 0 rgba(255, 255, 255, 0.1);
 }
 
 .discord-panel-glow, .glass-panel-glow {
-  border-color: rgba(88, 101, 242, 0.45);
+  border-color: rgba(0, 229, 153, 0.28);
   box-shadow: 
-    0 0 40px rgba(88, 101, 242, 0.25),
-    inset 0 1px 0 0 rgba(255, 255, 255, 0.25);
+    0 24px 60px -16px rgba(0, 0, 0, 0.7),
+    0 0 32px rgba(0, 229, 153, 0.12),
+    inset 0 1px 0 0 rgba(255, 255, 255, 0.14);
 }
 
-/* Discord Navigation Bar */
+/* Navigation Floating Island */
 .discord-nav, .glass-nav {
-  background: rgba(10, 13, 58, 0.85);
+  background: rgba(10, 13, 19, 0.85);
   backdrop-filter: blur(24px);
   -webkit-backdrop-filter: blur(24px);
-  border: 1px solid rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 9999px;
   box-shadow: 
-    0 12px 40px rgba(0, 0, 0, 0.45),
-    inset 0 1px 0 0 rgba(255, 255, 255, 0.15);
+    0 16px 40px -8px rgba(0, 0, 0, 0.7),
+    inset 0 1px 0 0 rgba(255, 255, 255, 0.12);
 }
 
-/* Discord Buttons */
+/* Tactical Action Buttons */
 .discord-button-blurple, .glass-button-primary {
-  background: #5865f2;
-  color: #ffffff;
+  background: #00e599;
+  color: #03120b;
   font-weight: 700;
   border: none;
   border-radius: 9999px;
   box-shadow: 
-    0 8px 24px rgba(88, 101, 242, 0.38),
-    inset 0 1px 0 rgba(255, 255, 255, 0.35);
-  transition: all 0.2s cubic-bezier(0.2, 0.8, 0.2, 1);
+    0 8px 24px -4px rgba(0, 229, 153, 0.35),
+    inset 0 1px 0 rgba(255, 255, 255, 0.4);
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .discord-button-blurple:hover, .glass-button-primary:hover {
-  background: #4752c4;
+  background: #05f0a2;
   box-shadow: 
-    0 12px 32px rgba(88, 101, 242, 0.55),
-    inset 0 1px 0 rgba(255, 255, 255, 0.45);
-  transform: translateY(-2px);
+    0 12px 30px -4px rgba(0, 229, 153, 0.5),
+    inset 0 1px 0 rgba(255, 255, 255, 0.5);
+  transform: translateY(-1px);
 }
 
 .discord-button-blurple:active, .glass-button-primary:active {
-  background: #3c45a5;
+  background: #00cc88;
   transform: translateY(0);
 }
 
 .discord-button-green {
-  background: #35ed7e;
-  color: #000000;
-  font-weight: 800;
+  background: #00e599;
+  color: #03120b;
+  font-weight: 700;
   border: none;
   border-radius: 9999px;
   box-shadow: 
-    0 8px 24px rgba(53, 237, 126, 0.35),
+    0 8px 24px -4px rgba(0, 229, 153, 0.35),
     inset 0 1px 0 rgba(255, 255, 255, 0.4);
-  transition: all 0.2s ease;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .discord-button-green:hover {
-  background: #2dd870;
-  box-shadow: 0 12px 30px rgba(53, 237, 126, 0.5);
-  transform: translateY(-2px);
+  background: #05f0a2;
+  box-shadow: 0 12px 30px -4px rgba(0, 229, 153, 0.5);
+  transform: translateY(-1px);
 }
 
 .discord-button-secondary, .glass-button-secondary {
-  background: #23272a;
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  color: #ffffff;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #f8fafc;
   font-weight: 600;
   border-radius: 9999px;
-  transition: all 0.2s ease;
+  backdrop-filter: blur(8px);
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .discord-button-secondary:hover, .glass-button-secondary:hover {
-  background: #2c3136;
-  border-color: rgba(255, 255, 255, 0.25);
+  background: rgba(255, 255, 255, 0.09);
+  border-color: rgba(255, 255, 255, 0.2);
   color: #ffffff;
   transform: translateY(-1px);
 }
 
-/* Discord Inputs & Dropdowns */
+/* Inputs & Dropdowns */
 .discord-input, .glass-input {
-  background: #181b3d;
-  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(13, 17, 24, 0.85);
+  border: 1px solid rgba(255, 255, 255, 0.09);
   border-radius: 0.875rem; /* 14px */
-  color: #ffffff;
+  color: #f8fafc;
   transition: all 0.2s ease;
 }
 
 .discord-input:focus, .glass-input:focus {
   outline: none;
-  border-color: #5865f2;
-  box-shadow: 0 0 0 3px rgba(88, 101, 242, 0.3);
-  background: #1e224e;
+  border-color: rgba(0, 229, 153, 0.6);
+  box-shadow: 0 0 0 3px rgba(0, 229, 153, 0.18);
+  background: rgba(18, 23, 33, 0.95);
 }
 
-/* Discord Badges & Pills */
+/* Refined Eyebrows & Status Pills */
 .discord-pill, .glass-pill {
-  background: rgba(88, 101, 242, 0.16);
-  border: 1px solid rgba(88, 101, 242, 0.4);
-  color: #ffffff;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: #e2e8f0;
   border-radius: 9999px;
-  font-weight: 700;
+  font-weight: 600;
 }
 
 .discord-pill-green {
-  background: rgba(53, 237, 126, 0.16);
-  border: 1px solid rgba(53, 237, 126, 0.4);
-  color: #35ed7e;
+  background: rgba(0, 229, 153, 0.1);
+  border: 1px solid rgba(0, 229, 153, 0.3);
+  color: #00e599;
   border-radius: 9999px;
+  font-weight: 600;
 }
 
 .discord-pill-magenta {
-  background: rgba(236, 72, 189, 0.16);
-  border: 1px solid rgba(236, 72, 189, 0.4);
-  color: #ec48bd;
+  background: rgba(244, 63, 94, 0.1);
+  border: 1px solid rgba(244, 63, 94, 0.3);
+  color: #f43f5e;
   border-radius: 9999px;
+  font-weight: 600;
 }
 
 /* Modal Backdrop */
 .discord-modal-backdrop, .glass-modal-backdrop {
-  background: rgba(10, 13, 58, 0.8);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
+  background: rgba(4, 5, 8, 0.82);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
 }
 
-/* Pitch Surface with Arcade Vibe */
+/* Authentic Tactical Turf Pitch */
 .discord-pitch, .glass-pitch {
-  background: radial-gradient(circle at 50% 50%, rgba(20, 35, 95, 0.95) 0%, rgba(10, 18, 55, 0.98) 100%);
+  background: radial-gradient(ellipse at 50% 35%, rgba(10, 28, 21, 0.92) 0%, rgba(5, 15, 12, 0.98) 100%);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(88, 101, 242, 0.35);
+  border: 1px solid rgba(0, 229, 153, 0.2);
   border-radius: 1.5rem;
   box-shadow: 
-    0 25px 60px -12px rgba(0, 0, 0, 0.5),
-    0 0 40px rgba(88, 101, 242, 0.2),
-    inset 0 1px 1px 0 rgba(255, 255, 255, 0.15);
+    0 25px 60px -12px rgba(0, 0, 0, 0.75),
+    0 0 30px rgba(0, 229, 153, 0.06),
+    inset 0 1px 1px 0 rgba(255, 255, 255, 0.1);
 }
 
 /* Scrollbar Utility */
