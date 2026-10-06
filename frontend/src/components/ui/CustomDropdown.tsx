@@ -27,23 +27,23 @@ export const CustomDropdown = ({ value, options, onChange, label }: CustomDropdo
     <div className="relative w-full sm:w-44 z-30" ref={dropdownRef}>
       <div 
         onClick={() => setIsOpen(!isOpen)}
-        className="flex items-center justify-between discord-input px-4 py-2.5 rounded-xl cursor-pointer hover:border-[#5865f2]/70 transition-all shadow-lg border border-white/15 bg-[#181b3d]"
+        className="flex items-center justify-between px-4 py-2 rounded-full cursor-pointer hover:border-white/20 transition-all border border-white/[0.09] bg-[#10131c] shadow-inner"
       >
         <div className="flex flex-col">
-          {label && <span className="text-[10px] text-[#5865f2] uppercase font-black tracking-wider">{label}</span>}
-          <span className="text-white font-heading font-extrabold text-sm leading-tight">{value}</span>
+          {label && <span className="text-[9px] text-slate-400 font-mono uppercase tracking-wider">{label}</span>}
+          <span className="text-white font-mono font-bold text-xs leading-tight">{value}</span>
         </div>
-        <ChevronDown size={16} className={`text-[#949ba4] transition-transform ${isOpen ? 'rotate-180 text-[#5865f2]' : ''}`} />
+        <ChevronDown size={14} className={`text-slate-400 transition-transform ${isOpen ? 'rotate-180 text-[#00e599]' : ''}`} />
       </div>
 
       <AnimatePresence>
         {isOpen && (
           <motion.div
-            initial={{ opacity: 0, y: -6, scale: 0.97 }}
+            initial={{ opacity: 0, y: -6, scale: 0.98 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: -6, scale: 0.97 }}
+            exit={{ opacity: 0, y: -6, scale: 0.98 }}
             transition={{ duration: 0.15 }}
-            className="absolute top-full left-0 mt-2 w-full bg-[#181b3d] border border-white/15 rounded-xl overflow-hidden z-50 shadow-2xl backdrop-blur-2xl"
+            className="absolute top-full left-0 mt-2 w-full bg-[#10131c] border border-white/10 rounded-2xl overflow-hidden z-50 shadow-[0_16px_40px_-10px_rgba(0,0,0,0.9)] backdrop-blur-2xl p-1"
           >
             {options.map((option) => (
               <div
@@ -52,8 +52,8 @@ export const CustomDropdown = ({ value, options, onChange, label }: CustomDropdo
                   onChange(option);
                   setIsOpen(false);
                 }}
-                className={`px-4 py-2.5 text-xs font-heading font-bold cursor-pointer transition-colors
-                  ${value === option ? 'text-white bg-[#5865f2] font-black' : 'text-[#949ba4] hover:bg-white/10 hover:text-white'}`}
+                className={`px-3.5 py-2 rounded-xl text-xs font-mono font-semibold cursor-pointer transition-colors
+                  ${value === option ? 'text-black bg-[#00e599] font-bold' : 'text-slate-300 hover:bg-white/[0.06] hover:text-white'}`}
               >
                 {option}
               </div>

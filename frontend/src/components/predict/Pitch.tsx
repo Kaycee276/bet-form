@@ -32,23 +32,23 @@ export const Pitch = ({ squad }: PitchProps) => {
   const allLines = [1, ...lines];
 
   return (
-    <div className="relative w-full aspect-[2/3] max-h-[620px] discord-pitch rounded-3xl overflow-hidden flex flex-col justify-between py-6 md:py-10 shadow-2xl border border-[#5865f2]/30">
-      {/* Tactical pitch lines with Discord neon glow */}
-      <div className="absolute inset-0 border border-white/10 m-4 rounded-2xl pointer-events-none" />
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-1/3 h-1/6 border border-t-0 border-white/10 rounded-b-xl pointer-events-none" />
-      <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-1/3 h-1/6 border border-b-0 border-white/10 rounded-t-xl pointer-events-none" />
-      <div className="absolute top-1/2 left-0 w-full h-px bg-white/10 pointer-events-none" />
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-24 h-24 md:w-32 md:h-32 border border-white/10 rounded-full pointer-events-none" />
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-2 h-2 bg-white/20 rounded-full pointer-events-none" />
+    <div className="relative w-full aspect-[2/3] max-h-[620px] rounded-3xl overflow-hidden flex flex-col justify-between py-6 md:py-10 shadow-[0_24px_60px_-15px_rgba(0,0,0,0.9)] border border-white/[0.08] bg-gradient-to-b from-[#091b14] via-[#06140f] to-[#040e0b]">
+      {/* Stadium Chalk Lines */}
+      <div className="absolute inset-0 border border-white/[0.12] m-4 rounded-2xl pointer-events-none" />
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-1/3 h-1/6 border border-t-0 border-white/[0.12] rounded-b-xl pointer-events-none" />
+      <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-1/3 h-1/6 border border-b-0 border-white/[0.12] rounded-t-xl pointer-events-none" />
+      <div className="absolute top-1/2 left-0 w-full h-px bg-white/[0.12] pointer-events-none" />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-24 h-24 md:w-32 md:h-32 border border-white/[0.12] rounded-full pointer-events-none" />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-2 h-2 bg-white/30 rounded-full pointer-events-none" />
 
-      {/* Render Rows (Reverse order to have GK at the bottom, ATT at the top) */}
+      {/* Render Rows (Reverse order: GK at bottom, ATT at top) */}
       {[...allLines].reverse().map((count, rowIndex) => {
         const logicalRowIndex = allLines.length - 1 - rowIndex;
 
         return (
           <div
             key={rowIndex}
-            className="flex justify-center items-center gap-2 md:gap-8 w-full z-10 px-4"
+            className="flex justify-center items-center gap-3 md:gap-8 w-full z-10 px-4"
           >
             {Array.from({ length: count }).map((_, colIndex) => {
               const slotId = `${logicalRowIndex}-${colIndex}`;
@@ -64,19 +64,19 @@ export const Pitch = ({ squad }: PitchProps) => {
               return (
                 <motion.div
                   key={slotId}
-                  whileHover={{ scale: 1.08 }}
-                  whileTap={{ scale: 0.95 }}
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.96 }}
                   onClick={() => setSelectedSlotId(isSelected ? null : slotId)}
                   className="relative flex flex-col items-center justify-center cursor-pointer group"
                 >
                   <div
-                    className={`w-12 h-12 md:w-16 md:h-16 rounded-2xl flex items-center justify-center border-2 transition-all duration-200 backdrop-blur-md shadow-xl
+                    className={`w-12 h-12 md:w-15 md:h-15 rounded-2xl flex items-center justify-center border transition-all duration-200 backdrop-blur-md shadow-lg
                     ${
                       isSelected
-                        ? "border-[#5865f2] bg-[#5865f2]/40 shadow-[0_0_28px_rgba(88,101,242,0.8)]"
+                        ? "border-[#00e599] bg-[#00e599]/25 shadow-[0_0_24px_rgba(0,229,153,0.4)]"
                         : player
-                          ? "border-[#35ed7e] bg-[#1e2353]/95 shadow-[0_0_18px_rgba(53,237,126,0.35)]"
-                          : "border-white/20 bg-[#12153b]/80 hover:border-[#5865f2]/60 hover:bg-[#181b3d]"
+                          ? "border-[#00e599]/40 bg-[#0e1613] shadow-md"
+                          : "border-white/15 bg-white/[0.04] hover:border-[#00e599]/40 hover:bg-[#00e599]/10"
                     }`}
                   >
                     {player ? (
@@ -87,24 +87,27 @@ export const Pitch = ({ squad }: PitchProps) => {
                           className="w-full h-full object-cover rounded-2xl"
                         />
                       ) : (
-                        <span className="text-white font-heading font-black text-xs md:text-sm">
+                        <span className="text-white font-mono font-bold text-xs md:text-sm">
                           {player.name.substring(0, 3).toUpperCase()}
                         </span>
                       )
                     ) : (
-                      <Plus size={16} className={`transition-colors ${isSelected ? "text-white" : "text-[#949ba4] group-hover:text-white"}`} />
+                      <Plus 
+                        size={15} 
+                        className={`transition-colors ${isSelected ? "text-[#00e599]" : "text-slate-400 group-hover:text-white"}`} 
+                      />
                     )}
                   </div>
 
                   {/* Player Name Tag */}
-                  <div className={`mt-1.5 px-2.5 py-0.5 rounded-full text-[10px] md:text-xs font-heading font-extrabold max-w-[80px] md:max-w-[100px] truncate text-center backdrop-blur-md shadow-lg border transition-all ${
+                  <div className={`mt-1.5 px-2.5 py-0.5 rounded-full text-[9px] md:text-[11px] font-mono font-medium max-w-[80px] md:max-w-[100px] truncate text-center backdrop-blur-md shadow-md border transition-all ${
                     isSelected
-                      ? "bg-[#5865f2] text-white border-white/30 shadow-[0_0_12px_rgba(88,101,242,0.6)]"
+                      ? "bg-[#00e599] text-black border-white/20 font-bold"
                       : player
-                        ? "bg-[#1e2353] text-[#35ed7e] border-[#35ed7e]/40"
-                        : "bg-[#101338]/90 text-[#949ba4] border-white/10"
+                        ? "bg-[#0b1411] text-[#00e599] border-[#00e599]/30"
+                        : "bg-[#080b0f]/80 text-slate-400 border-white/[0.08]"
                   }`}>
-                    {player ? player.name.split(" ").pop() : "Pick"}
+                    {player ? player.name.split(" ").pop() : "Slot"}
                   </div>
 
                   {/* Unassign button */}
@@ -114,7 +117,7 @@ export const Pitch = ({ squad }: PitchProps) => {
                         e.stopPropagation();
                         unassignPlayer(slotId);
                       }}
-                      className="absolute -top-1 -right-1 bg-[#ed4245] hover:bg-[#da373c] text-white font-black rounded-full w-5 h-5 flex items-center justify-center text-[10px] opacity-0 group-hover:opacity-100 transition-opacity shadow-lg"
+                      className="absolute -top-1 -right-1 bg-rose-500/90 hover:bg-rose-600 text-white font-bold rounded-full w-4.5 h-4.5 flex items-center justify-center text-[10px] opacity-0 group-hover:opacity-100 transition-opacity shadow-md cursor-pointer"
                     >
                       <X size={10} />
                     </button>

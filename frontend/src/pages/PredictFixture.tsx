@@ -99,17 +99,16 @@ export const PredictFixture = () => {
 
   if (isLoading) {
     return (
-      <div className="min-h-screen bg-[#0a0d3a] flex items-center justify-center">
-        <div className="relative w-14 h-14">
-          <div className="absolute inset-0 rounded-full border-t-2 border-[#5865f2] animate-spin"></div>
-          <div className="absolute inset-2 rounded-full border-r-2 border-[#35ed7e] animate-spin opacity-70"></div>
+      <div className="min-h-screen bg-[#08090d] flex items-center justify-center">
+        <div className="relative w-12 h-12">
+          <div className="absolute inset-0 rounded-full border-2 border-white/10 border-t-[#00e599] animate-spin" />
         </div>
       </div>
     );
   }
 
   if (!fixture) {
-    return <div className="min-h-screen bg-[#0a0d3a] text-white p-12">Fixture not found.</div>;
+    return <div className="min-h-screen bg-[#08090d] text-slate-300 p-12">Fixture not found.</div>;
   }
 
   const currentSquad = fixture.squads
@@ -117,17 +116,17 @@ export const PredictFixture = () => {
     .map((s) => s.player) || [];
 
   return (
-    <div className="min-h-screen bg-[#0a0d3a] flex flex-col pb-16 text-white overflow-hidden relative">
-      {/* Discord background glow */}
-      <div className="absolute top-0 left-1/3 w-[600px] h-[600px] bg-[#5865f2]/20 rounded-full blur-[160px] pointer-events-none"></div>
-      <div className="absolute top-1/2 right-1/4 w-[500px] h-[500px] bg-[#ec48bd]/15 rounded-full blur-[140px] pointer-events-none"></div>
+    <div className="min-h-screen bg-[#08090d] flex flex-col pb-16 text-slate-100 overflow-hidden relative">
+      {/* Subtle atmospheric ambient glow */}
+      <div className="absolute top-0 left-1/3 w-[700px] h-[400px] bg-[#00e599]/[0.04] rounded-full blur-[150px] pointer-events-none" />
+      <div className="absolute top-1/2 right-1/4 w-[500px] h-[500px] bg-slate-800/15 rounded-full blur-[160px] pointer-events-none" />
 
-      <header className="pt-8 pb-6 px-6 max-w-7xl mx-auto w-full border-b border-white/10 mb-6 relative z-10">
+      <header className="pt-8 pb-6 px-6 max-w-7xl mx-auto w-full border-b border-white/[0.07] mb-6 relative z-10">
         <button 
           onClick={() => navigate(-1)}
-          className="flex items-center gap-2 text-[#949ba4] hover:text-white mb-6 transition-colors text-xs font-black uppercase tracking-wider px-4 py-1.5 rounded-full bg-white/5 border border-white/10 w-fit cursor-pointer"
+          className="flex items-center gap-2 text-slate-400 hover:text-white mb-6 transition-colors text-xs font-mono uppercase tracking-wider px-3.5 py-1.5 rounded-full bg-white/[0.04] border border-white/[0.08] w-fit cursor-pointer"
         >
-          <ArrowLeft size={14} /> Back to Fixtures
+          <ArrowLeft size={13} /> Back to Fixtures
         </button>
 
         <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
@@ -136,65 +135,70 @@ export const PredictFixture = () => {
               <img 
                 src="/logo.png" 
                 alt="BetForm Logo" 
-                className="w-5 h-5 rounded-md border border-white/20 shadow-[0_0_8px_rgba(88,101,242,0.5)] object-cover" 
+                className="w-5 h-5 rounded-md border border-white/10 object-cover" 
               />
-              <span className="text-xs font-heading font-black tracking-wider uppercase text-[#35ed7e]">
+              <span className="text-[11px] font-mono tracking-[0.16em] uppercase text-[#00e599] font-medium">
                 Tactical Studio
               </span>
             </div>
-            <h2 className="text-2xl md:text-4xl font-heading font-black tracking-tight text-white mb-1">
+            <h2 className="text-2xl md:text-3xl font-heading font-black tracking-tight text-white mb-1">
               Lineup & Formation Builder
             </h2>
-            <p className="text-[#949ba4] text-xs md:text-sm font-medium">
-              Predict starting XI and shape for <span className="font-bold text-white">{selectedTeam === "HOME" ? fixture.homeTeamName : fixture.awayTeamName}</span>
+            <p className="text-slate-400 text-xs md:text-sm font-normal">
+              Predict starting XI and tactical shape for <span className="font-semibold text-white">{selectedTeam === "HOME" ? fixture.homeTeamName : fixture.awayTeamName}</span>
             </p>
           </div>
           
+          {/* Button-in-Button Lock CTA */}
           <button 
             onClick={() => setIsModalOpen(true)}
-            className="discord-button-blurple px-7 py-3 rounded-full cursor-pointer whitespace-nowrap w-full md:w-auto text-xs font-black uppercase tracking-wider flex items-center justify-center gap-2 shadow-[0_0_25px_rgba(88,101,242,0.5)]"
+            className="pl-5 pr-2 py-2 rounded-full bg-[#00e599] text-[#04120b] text-xs font-bold uppercase tracking-wider flex items-center justify-center gap-2.5 shadow-[0_8px_24px_-4px_rgba(0,229,153,0.35)] hover:bg-[#05f0a2] active:scale-[0.98] transition-all cursor-pointer group"
           >
-            <Lock size={15} />
             <span>Lock Prediction</span>
+            <div className="w-7 h-7 rounded-full bg-black/10 flex items-center justify-center">
+              <Lock size={13} className="text-[#04120b]" />
+            </div>
           </button>
         </div>
       </header>
 
       <main className="flex-1 px-6 w-full max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-8 relative z-10">
         <div className="lg:col-span-8 flex flex-col gap-6">
-          {/* Controls Panel */}
-          <div className="discord-card p-4 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
-            {/* Team Toggle Pills */}
-            <div className="flex bg-[#12153b] p-1 rounded-full w-full sm:w-auto border border-white/10">
-              <button 
-                onClick={() => setSelectedTeam("HOME")}
-                className={`flex-1 sm:flex-none px-6 py-2 rounded-full text-xs font-heading font-black transition-all cursor-pointer ${
-                  selectedTeam === "HOME" 
-                    ? 'bg-[#5865f2] text-white shadow-lg' 
-                    : 'text-[#949ba4] hover:text-white'
-                }`}
-              >
-                {fixture.homeTeamName}
-              </button>
-              <button 
-                onClick={() => setSelectedTeam("AWAY")}
-                className={`flex-1 sm:flex-none px-6 py-2 rounded-full text-xs font-heading font-black transition-all cursor-pointer ${
-                  selectedTeam === "AWAY" 
-                    ? 'bg-[#5865f2] text-white shadow-lg' 
-                    : 'text-[#949ba4] hover:text-white'
-                }`}
-              >
-                {fixture.awayTeamName}
-              </button>
-            </div>
+          {/* Controls Double-Bezel Panel */}
+          <div className="p-1 rounded-2xl bg-white/[0.03] border border-white/[0.08]">
+            <div className="p-3 rounded-[calc(1rem-2px)] bg-[#0f121a] flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+              {/* Team Toggle Pills */}
+              <div className="flex bg-[#141824] p-1 rounded-full w-full sm:w-auto border border-white/[0.08]">
+                <button 
+                  onClick={() => setSelectedTeam("HOME")}
+                  className={`flex-1 sm:flex-none px-5 py-1.5 rounded-full text-xs font-mono font-semibold transition-all cursor-pointer ${
+                    selectedTeam === "HOME" 
+                      ? 'bg-white text-[#08090d] shadow-sm font-bold' 
+                      : 'text-slate-400 hover:text-white'
+                  }`}
+                >
+                  {fixture.homeTeamName}
+                </button>
+                <button 
+                  onClick={() => setSelectedTeam("AWAY")}
+                  className={`flex-1 sm:flex-none px-5 py-1.5 rounded-full text-xs font-mono font-semibold transition-all cursor-pointer ${
+                    selectedTeam === "AWAY" 
+                      ? 'bg-white text-[#08090d] shadow-sm font-bold' 
+                      : 'text-slate-400 hover:text-white'
+                  }`}
+                >
+                  {fixture.awayTeamName}
+                </button>
+              </div>
 
-            {/* Formation Selector */}
-            <CustomDropdown
-              label="Formation"
-              value={formation}
-              options={formations}
-              onChange={setFormation}
-            />
+              {/* Formation Selector */}
+              <CustomDropdown
+                label="Tactical Shape"
+                value={formation}
+                options={formations}
+                onChange={setFormation}
+              />
+            </div>
           </div>
 
           {/* Tactical Pitch */}
@@ -215,38 +219,38 @@ export const PredictFixture = () => {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               onClick={() => setIsModalOpen(false)}
-              className="absolute inset-0 discord-modal-backdrop"
+              className="absolute inset-0 bg-black/80 backdrop-blur-xl"
             />
 
             <motion.div
-              initial={{ opacity: 0, scale: 0.95, y: 20 }}
+              initial={{ opacity: 0, scale: 0.96, y: 16 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 0.95, y: 20 }}
-              className="discord-panel w-full max-w-lg shadow-2xl overflow-hidden relative z-10 border border-white/15 bg-[#181b3d]"
+              exit={{ opacity: 0, scale: 0.96, y: 16 }}
+              className="p-1 rounded-[2rem] bg-white/[0.04] border border-white/10 w-full max-w-lg shadow-[0_24px_70px_-15px_rgba(0,0,0,0.9)] relative z-10"
             >
-              <div className="flex items-center justify-between p-6 border-b border-white/10">
-                <div className="flex items-center gap-2 font-heading font-black text-xl tracking-tight text-white">
-                  <ShieldCheck className="text-[#35ed7e]" size={22} />
-                  <span>Lock Tactical Prediction</span>
+              <div className="p-6 md:p-8 rounded-[calc(2rem-4px)] bg-[#0e1118]">
+                <div className="flex items-center justify-between pb-5 border-b border-white/[0.08] mb-6">
+                  <div className="flex items-center gap-2 font-heading font-black text-lg tracking-tight text-white">
+                    <ShieldCheck className="text-[#00e599]" size={20} />
+                    <span>Lock Tactical Prediction</span>
+                  </div>
+                  <button
+                    onClick={() => setIsModalOpen(false)}
+                    className="p-1.5 rounded-full text-slate-400 hover:bg-white/[0.08] hover:text-white transition-colors cursor-pointer"
+                  >
+                    <X size={17} />
+                  </button>
                 </div>
-                <button
-                  onClick={() => setIsModalOpen(false)}
-                  className="p-1.5 rounded-full text-[#949ba4] hover:bg-white/10 hover:text-white transition-colors cursor-pointer"
-                >
-                  <X size={18} />
-                </button>
-              </div>
 
-              <div className="p-6 space-y-6">
                 {txResult ? (
                   <div className="space-y-6 text-center py-4">
-                    <div className="w-16 h-16 bg-[#35ed7e]/20 text-[#35ed7e] border border-[#35ed7e]/40 rounded-full mx-auto flex items-center justify-center shadow-[0_0_30px_rgba(53,237,126,0.4)]">
-                      <CheckCircle2 size={36} />
+                    <div className="w-16 h-16 bg-[#00e599]/15 text-[#00e599] border border-[#00e599]/30 rounded-full mx-auto flex items-center justify-center shadow-[0_0_25px_rgba(0,229,153,0.3)]">
+                      <CheckCircle2 size={32} />
                     </div>
 
                     <div>
-                      <h3 className="text-2xl font-heading font-black text-white mb-2">Prediction Locked!</h3>
-                      <p className="text-xs text-[#949ba4] max-w-sm mx-auto leading-relaxed">
+                      <h3 className="text-xl font-heading font-bold text-white mb-2">Prediction Locked!</h3>
+                      <p className="text-xs text-slate-400 max-w-sm mx-auto leading-relaxed">
                         {contestMode === "USDC_POOL"
                           ? "Your prediction hash and 10 USDC stake have been deposited into the Soroban Smart Contract."
                           : "Your Free-to-Play tactical prediction has been recorded on the leaderboard."}
@@ -254,9 +258,9 @@ export const PredictFixture = () => {
                     </div>
 
                     {txResult.txHash && contestMode === "USDC_POOL" && (
-                      <div className="p-3 bg-[#101338] border border-[#35ed7e]/30 rounded-xl text-left space-y-1 font-mono text-xs">
-                        <p className="text-[#949ba4] font-bold uppercase text-[10px]">Stellar Testnet TX Hash:</p>
-                        <p className="text-[#35ed7e] truncate font-semibold">{txResult.txHash}</p>
+                      <div className="p-3 bg-[#131722] border border-[#00e599]/30 rounded-xl text-left space-y-1 font-mono text-xs">
+                        <p className="text-slate-400 font-bold uppercase text-[10px]">Stellar Testnet TX Hash:</p>
+                        <p className="text-[#00e599] truncate font-semibold">{txResult.txHash}</p>
                       </div>
                     )}
 
@@ -265,40 +269,40 @@ export const PredictFixture = () => {
                         setIsModalOpen(false);
                         setTxResult(null);
                       }}
-                      className="w-full discord-button-blurple py-3.5 text-sm font-black cursor-pointer"
+                      className="w-full py-3 rounded-full bg-white text-black font-bold text-xs uppercase tracking-wider hover:bg-slate-200 transition-all cursor-pointer"
                     >
                       Done
                     </button>
                   </div>
                 ) : (
-                  <>
+                  <div className="space-y-6">
                     {/* Score Predictor Inputs */}
                     <div className="space-y-2">
-                      <label className="text-xs font-heading font-bold text-[#949ba4] uppercase tracking-wider">
+                      <label className="text-xs font-mono uppercase tracking-wider text-slate-400">
                         Predicted Fulltime Scoreline
                       </label>
-                      <div className="grid grid-cols-2 gap-4">
-                        <div className="p-3 bg-[#101338] border border-white/10 rounded-xl flex items-center justify-between">
-                          <span className="text-xs font-heading font-bold text-white truncate max-w-[120px]">{fixture.homeTeamName}</span>
+                      <div className="grid grid-cols-2 gap-3">
+                        <div className="p-3 bg-[#131722] border border-white/[0.08] rounded-xl flex items-center justify-between">
+                          <span className="text-xs font-medium text-white truncate max-w-[120px]">{fixture.homeTeamName}</span>
                           <input
                             type="number"
                             min={0}
                             max={15}
                             value={homeScore}
                             onChange={(e) => setHomeScore(parseInt(e.target.value) || 0)}
-                            className="w-12 bg-[#23272a] rounded-lg text-center font-heading font-black text-[#35ed7e] p-1 border border-white/20 outline-none"
+                            className="w-11 bg-[#1a202e] rounded-lg text-center font-mono font-bold text-[#00e599] p-1 border border-white/10 outline-none tabular-nums"
                           />
                         </div>
 
-                        <div className="p-3 bg-[#101338] border border-white/10 rounded-xl flex items-center justify-between">
-                          <span className="text-xs font-heading font-bold text-white truncate max-w-[120px]">{fixture.awayTeamName}</span>
+                        <div className="p-3 bg-[#131722] border border-white/[0.08] rounded-xl flex items-center justify-between">
+                          <span className="text-xs font-medium text-white truncate max-w-[120px]">{fixture.awayTeamName}</span>
                           <input
                             type="number"
                             min={0}
                             max={15}
                             value={awayScore}
                             onChange={(e) => setAwayScore(parseInt(e.target.value) || 0)}
-                            className="w-12 bg-[#23272a] rounded-lg text-center font-heading font-black text-[#35ed7e] p-1 border border-white/20 outline-none"
+                            className="w-11 bg-[#1a202e] rounded-lg text-center font-mono font-bold text-[#00e599] p-1 border border-white/10 outline-none tabular-nums"
                           />
                         </div>
                       </div>
@@ -306,73 +310,73 @@ export const PredictFixture = () => {
 
                     {/* Mode Selector */}
                     <div className="space-y-2">
-                      <label className="text-xs font-heading font-bold text-[#949ba4] uppercase tracking-wider">
+                      <label className="text-xs font-mono uppercase tracking-wider text-slate-400">
                         Select Entry Mode
                       </label>
                       <div className="grid grid-cols-2 gap-3">
                         <button
                           type="button"
                           onClick={() => setContestMode("FREE")}
-                          className={`p-4 text-left rounded-2xl border transition-all cursor-pointer ${
+                          className={`p-3.5 text-left rounded-xl border transition-all cursor-pointer ${
                             contestMode === "FREE"
-                              ? "bg-[#23272a] border-[#5865f2] shadow-lg text-white"
-                              : "bg-[#101338] border-white/10 text-[#949ba4] hover:text-white"
+                              ? "bg-white/[0.08] border-white/20 text-white"
+                              : "bg-[#131722] border-white/[0.06] text-slate-400 hover:text-white"
                           }`}
                         >
-                          <p className="font-heading font-black text-xs uppercase text-white">Free-to-Play</p>
-                          <p className="text-[10px] text-[#949ba4] mt-1">Standard leaderboard points</p>
+                          <p className="font-mono font-bold text-xs uppercase text-white">Free-to-Play</p>
+                          <p className="text-[10px] text-slate-400 mt-1">Standard leaderboard points</p>
                         </button>
 
                         <button
                           type="button"
                           onClick={() => setContestMode("USDC_POOL")}
-                          className={`p-4 text-left rounded-2xl border transition-all cursor-pointer ${
+                          className={`p-3.5 text-left rounded-xl border transition-all cursor-pointer ${
                             contestMode === "USDC_POOL"
-                              ? "bg-[#1e2353] border-[#35ed7e] shadow-[0_0_15px_rgba(53,237,126,0.3)] text-white"
-                              : "bg-[#101338] border-white/10 text-[#949ba4] hover:text-white"
+                              ? "bg-[#00e599]/10 border-[#00e599]/40 text-white shadow-sm"
+                              : "bg-[#131722] border-white/[0.06] text-slate-400 hover:text-white"
                           }`}
                         >
                           <div className="flex items-center gap-1.5">
-                            <Coins size={14} className="text-[#35ed7e]" />
-                            <p className="font-heading font-black text-xs uppercase text-[#35ed7e]">USDC Pool</p>
+                            <Coins size={13} className="text-[#00e599]" />
+                            <p className="font-mono font-bold text-xs uppercase text-[#00e599]">USDC Pool</p>
                           </div>
-                          <p className="text-[10px] text-[#949ba4] mt-1">10 USDC stake • On-Chain Prize</p>
+                          <p className="text-[10px] text-slate-400 mt-1">10 USDC stake • On-Chain Prize</p>
                         </button>
                       </div>
                     </div>
 
                     {/* Wallet Status Banner */}
                     {contestMode === "USDC_POOL" && (
-                      <div className="p-4 bg-[#101338] border border-[#35ed7e]/30 rounded-2xl space-y-3">
+                      <div className="p-3.5 bg-[#131722] border border-white/[0.08] rounded-xl space-y-2.5">
                         <div className="flex items-center justify-between text-xs">
-                          <div className="flex items-center gap-2 text-white font-bold">
-                            <Wallet className="text-[#5865f2]" size={16} />
+                          <div className="flex items-center gap-2 text-white font-medium">
+                            <Wallet className="text-[#00e599]" size={15} />
                             <span>Freighter Wallet</span>
                           </div>
                           {isConnected && publicKey ? (
-                            <span className="font-mono text-[#35ed7e] text-[10px] font-bold">
+                            <span className="font-mono text-[#00e599] text-[10px] font-semibold">
                               {publicKey.substring(0, 6)}...{publicKey.substring(publicKey.length - 4)}
                             </span>
                           ) : (
                             <button
                               onClick={connectWallet}
-                              className="text-xs font-heading font-black text-[#5865f2] hover:underline cursor-pointer"
+                              className="text-xs font-mono font-bold text-[#00e599] hover:underline cursor-pointer"
                             >
                               Connect
                             </button>
                           )}
                         </div>
 
-                        <div className="flex items-center justify-between text-xs pt-2 border-t border-white/10">
-                          <span className="text-[#949ba4]">USDC Balance:</span>
-                          <span className="font-heading font-black text-white">{usdcBalance} USDC</span>
+                        <div className="flex items-center justify-between text-xs pt-2 border-t border-white/[0.06]">
+                          <span className="text-slate-400">USDC Balance:</span>
+                          <span className="font-mono font-bold text-white tabular-nums">{usdcBalance} USDC</span>
                         </div>
                       </div>
                     )}
 
                     {submitError && (
-                      <div className="p-3 bg-[#ed4245]/20 border border-[#ed4245]/40 rounded-xl text-[#ed4245] text-xs flex items-center gap-2">
-                        <AlertCircle size={16} className="shrink-0" />
+                      <div className="p-3 bg-rose-500/10 border border-rose-500/30 rounded-xl text-rose-400 text-xs flex items-center gap-2">
+                        <AlertCircle size={15} className="shrink-0" />
                         <span>{submitError}</span>
                       </div>
                     )}
@@ -380,7 +384,7 @@ export const PredictFixture = () => {
                     <button
                       onClick={handleLockPrediction}
                       disabled={isSubmitting}
-                      className="w-full discord-button-blurple py-4 text-sm font-black uppercase tracking-wider shadow-[0_0_25px_rgba(88,101,242,0.5)] cursor-pointer"
+                      className="w-full py-3.5 rounded-full bg-[#00e599] hover:bg-[#05f0a2] text-black font-bold text-xs uppercase tracking-wider shadow-[0_8px_24px_-4px_rgba(0,229,153,0.35)] cursor-pointer active:scale-[0.98] transition-all disabled:opacity-50"
                     >
                       {isSubmitting
                         ? "Depositing & Locking Hash..."
@@ -388,7 +392,7 @@ export const PredictFixture = () => {
                         ? "Stake 10 USDC & Lock Prediction"
                         : "Confirm Free Prediction"}
                     </button>
-                  </>
+                  </div>
                 )}
               </div>
             </motion.div>
