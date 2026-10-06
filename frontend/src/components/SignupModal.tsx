@@ -37,77 +37,78 @@ export const SignupModal = () => {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={closeModal}
-            className="absolute inset-0 discord-modal-backdrop"
+            className="absolute inset-0 bg-black/80 backdrop-blur-xl"
           />
           
           <motion.div 
-            initial={{ opacity: 0, scale: 0.95, y: 16 }}
+            initial={{ opacity: 0, scale: 0.96, y: 16 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
-            exit={{ opacity: 0, scale: 0.95, y: 16 }}
-            className="discord-panel w-full max-w-md rounded-3xl shadow-2xl overflow-hidden relative z-10 border border-white/15 bg-[#181b3d]"
+            exit={{ opacity: 0, scale: 0.96, y: 16 }}
+            className="p-1 rounded-[2rem] bg-white/[0.04] border border-white/10 w-full max-w-md shadow-[0_24px_70px_-15px_rgba(0,0,0,0.9)] relative z-10"
           >
-            {/* Ambient Blurple glow */}
-            <div className="absolute top-0 right-0 w-64 h-64 bg-[#5865f2]/20 blur-3xl rounded-full translate-x-1/3 -translate-y-1/3 pointer-events-none"></div>
-
-            <div className="flex items-center justify-between p-6 border-b border-white/10 relative z-10">
-              <div className="flex items-center gap-2.5 font-heading font-black text-xl tracking-tight">
-                <img 
-                  src="/logo.png" 
-                  alt="BetForm Logo" 
-                  className="w-6 h-6 rounded-lg border border-white/20 shadow-[0_0_8px_rgba(88,101,242,0.5)] object-cover" 
-                />
-                <div>
-                  <span className="text-white">Join </span>
-                  <span className="text-[#5865f2] drop-shadow-[0_0_10px_rgba(88,101,242,0.6)]">BetForm</span>
+            <div className="p-7 md:p-8 rounded-[calc(2rem-4px)] bg-[#0e1118]">
+              <div className="flex items-center justify-between pb-5 border-b border-white/[0.08] relative z-10">
+                <div className="flex items-center gap-2.5">
+                  <img 
+                    src="/logo.png" 
+                    alt="BetForm Logo" 
+                    className="w-6 h-6 rounded-md border border-white/10 object-cover" 
+                  />
+                  <div className="flex items-center gap-1.5">
+                    <span className="text-white font-bold text-base">BetForm</span>
+                    <span className="text-[10px] font-mono tracking-widest px-2 py-0.5 rounded-full bg-white/[0.05] text-slate-300 border border-white/10">
+                      AUTH
+                    </span>
+                  </div>
                 </div>
+                <button
+                  onClick={closeModal}
+                  className="p-1.5 rounded-full text-slate-400 hover:bg-white/[0.08] hover:text-white transition-colors cursor-pointer"
+                >
+                  <X size={17} />
+                </button>
               </div>
-              <button
-                onClick={closeModal}
-                className="p-1.5 rounded-full text-[#949ba4] hover:bg-white/10 hover:text-white transition-colors cursor-pointer"
-              >
-                <X size={18} />
-              </button>
-            </div>
 
-            <div className="p-8 space-y-6 relative z-10">
-              <p className="text-[#949ba4] text-sm text-center leading-relaxed font-medium">
-                Sign in to predict upcoming football fixtures, stake in USDC contest pools, and compete on the tactical leaderboard.
-              </p>
+              <div className="pt-6 space-y-6 relative z-10">
+                <p className="text-slate-400 text-xs text-center leading-relaxed font-normal">
+                  Authenticate to predict fixtures, enter decentralized USDC contest pools, and claim rewards on Stellar Soroban.
+                </p>
 
-              {walletError && (
-                <div className="p-3 bg-[#ed4245]/20 border border-[#ed4245]/40 text-[#ed4245] rounded-xl text-xs font-mono">
-                  {walletError}
+                {walletError && (
+                  <div className="p-3 bg-rose-500/10 border border-rose-500/30 text-rose-400 rounded-xl text-xs font-mono">
+                    {walletError}
+                  </div>
+                )}
+
+                <div className="space-y-3">
+                  <button 
+                    onClick={handleGoogleLogin}
+                    className="w-full flex items-center justify-center gap-3 bg-white hover:bg-slate-200 text-black py-3 px-6 rounded-full text-xs font-bold uppercase tracking-wider transition-all cursor-pointer shadow-sm active:scale-[0.98]"
+                  >
+                    Continue with Google
+                  </button>
+
+                  <div className="relative flex py-1 items-center">
+                    <div className="flex-grow border-t border-white/[0.07]"></div>
+                    <span className="flex-shrink mx-3 text-slate-500 font-mono text-[10px] uppercase tracking-widest">Or Web3</span>
+                    <div className="flex-grow border-t border-white/[0.07]"></div>
+                  </div>
+
+                  <button 
+                    onClick={handleConnectWallet}
+                    disabled={isConnecting}
+                    className="w-full py-3 px-6 rounded-full bg-[#00e599] hover:bg-[#05f0a2] text-black text-xs font-bold uppercase tracking-wider flex items-center justify-center gap-2.5 transition-all cursor-pointer shadow-[0_8px_24px_-4px_rgba(0,229,153,0.35)] active:scale-[0.98]"
+                  >
+                    <Wallet size={15} />
+                    <span>
+                      {isConnecting
+                        ? "Connecting..."
+                        : isConnected && publicKey
+                        ? `Connected: ${publicKey.substring(0, 6)}...${publicKey.substring(publicKey.length - 4)}`
+                        : "Connect Stellar Freighter"}
+                    </span>
+                  </button>
                 </div>
-              )}
-
-              <div className="space-y-3.5">
-                <button 
-                  onClick={handleGoogleLogin}
-                  className="w-full flex items-center justify-center gap-3 bg-white hover:bg-slate-100 text-slate-950 py-3.5 px-6 rounded-full text-sm font-heading font-extrabold transition-all cursor-pointer shadow-lg"
-                >
-                  Continue with Google
-                </button>
-
-                <div className="relative flex py-1 items-center">
-                  <div className="flex-grow border-t border-white/10"></div>
-                  <span className="flex-shrink mx-4 text-[#949ba4] font-heading text-[11px] uppercase font-bold tracking-wider">Or Web3</span>
-                  <div className="flex-grow border-t border-white/10"></div>
-                </div>
-
-                <button 
-                  onClick={handleConnectWallet}
-                  disabled={isConnecting}
-                  className="w-full discord-button-blurple py-3.5 px-6 rounded-full text-sm font-heading font-black flex items-center justify-center gap-2.5 transition-all cursor-pointer"
-                >
-                  <Wallet size={17} />
-                  <span>
-                    {isConnecting
-                      ? "Connecting..."
-                      : isConnected && publicKey
-                      ? `Connected: ${publicKey.substring(0, 6)}...${publicKey.substring(publicKey.length - 4)}`
-                      : "Connect Stellar Freighter"}
-                  </span>
-                </button>
               </div>
             </div>
           </motion.div>
